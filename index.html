@@ -135,13 +135,42 @@ header.scrolled{background:rgba(11,29,46,.94);backdrop-filter:blur(12px);box-sha
 .why{background:var(--ink);color:#fff}
 .why .eyebrow{color:#7fd6d1}
 .why .lead{color:rgba(255,255,255,.72)}
-.benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.1);border-radius:var(--radius);overflow:hidden}
-.benefit{background:var(--ink);padding:38px 34px;transition:.3s}
-.benefit:hover{background:var(--ink-2)}
-.benefit .ic{width:50px;height:50px;border-radius:12px;background:rgba(13,138,134,.18);display:grid;place-items:center;margin-bottom:22px;color:#7fd6d1}
-.benefit .ic svg{width:24px;height:24px}
-.benefit h3{margin-bottom:10px}
-.benefit p{font-size:.96rem;color:rgba(255,255,255,.68)}
+/* Why: pinned section, cards slide horizontally as the page scrolls */
+.why{padding-top:0}
+.hscroll{position:relative}
+.hs-sticky{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;gap:40px;overflow:hidden;padding-top:60px}
+.hs-track{display:flex;gap:26px;align-items:stretch;width:max-content;padding:0 calc(50vw - min(390px,78vw) / 2) 0 max(24px,calc((100vw - var(--max)) / 2 + 24px));will-change:transform}
+.hs-intro{width:min(480px,84vw);flex-shrink:0;display:flex;flex-direction:column;justify-content:center;padding-right:40px}
+.hs-intro h2{margin:14px 0 16px}
+.hs-hint{display:inline-flex;align-items:center;gap:12px;margin-top:30px;font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:#7fd6d1;font-weight:600}
+.hs-hint svg{width:22px;height:22px;animation:nudge 1.6s ease-in-out infinite}
+@keyframes nudge{50%{transform:translateX(8px)}}
+.hs-card{position:relative;overflow:hidden;width:min(390px,78vw);height:min(450px,60vh);min-height:360px;flex-shrink:0;display:flex;flex-direction:column;justify-content:space-between;padding:36px 34px;border-radius:24px;background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.015));border:1px solid rgba(255,255,255,.1);transform-origin:center;transition:border-color .5s,background .5s,box-shadow .5s}
+.hs-card::before{content:"";position:absolute;width:260px;height:260px;right:-90px;top:-90px;border-radius:50%;background:radial-gradient(circle,rgba(13,138,134,.45),transparent 70%);opacity:0;transition:opacity .6s}
+.hs-card.active{border-color:rgba(127,214,209,.55);background:linear-gradient(160deg,rgba(13,138,134,.32),rgba(13,138,134,.04));box-shadow:0 30px 60px -30px rgba(0,0,0,.6)}
+.hs-card.active::before{opacity:1}
+.hs-top{display:flex;justify-content:space-between;align-items:flex-start;position:relative}
+.hs-card .ic{width:56px;height:56px;border-radius:14px;background:rgba(13,138,134,.2);display:grid;place-items:center;color:#7fd6d1}
+.hs-card .ic svg{width:26px;height:26px}
+.hs-num{font-family:var(--serif);font-size:5.4rem;line-height:.8;color:transparent;-webkit-text-stroke:1.2px rgba(127,214,209,.45);transition:color .5s}
+.hs-card.active .hs-num{color:rgba(127,214,209,.18)}
+.hs-card small{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:#7fd6d1;font-weight:700}
+.hs-card h3{font-size:1.75rem;margin:10px 0 12px}
+.hs-card p{font-size:.98rem;color:rgba(255,255,255,.7)}
+.hs-bar{display:flex;align-items:center;gap:22px;width:100%;max-width:var(--max);margin:0 auto;padding:0 24px;font-size:.85rem;color:rgba(255,255,255,.55)}
+.hs-bar b{color:#fff;font-family:var(--serif);font-weight:500;font-size:1.1rem}
+.hs-progress{flex:1;height:2px;background:rgba(255,255,255,.12);position:relative;border-radius:2px}
+.hs-progress i{position:absolute;inset:0 auto 0 0;width:0;background:linear-gradient(90deg,var(--teal),#9fe3de);border-radius:2px}
+/* Phones and reduced motion: native swipe carousel instead of pinning */
+@media (max-width:768px),(prefers-reduced-motion:reduce){
+  .why{padding-top:76px}
+  .hs-sticky{position:static;height:auto;overflow:visible;padding-top:0;gap:22px}
+  .hs-track{width:auto;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 18px 6px;gap:16px;scrollbar-width:none}
+  .hs-track::-webkit-scrollbar{display:none}
+  .hs-intro{scroll-snap-align:start;padding-right:10px}
+  .hs-card{scroll-snap-align:center;height:auto;padding:30px 26px}
+  .hs-bar{padding:0 18px}
+}
 .compare{margin-top:72px;background:#fff;color:var(--ink);border-radius:var(--radius);overflow:hidden}
 .compare table{width:100%;border-collapse:collapse;font-size:.97rem}
 .compare th,.compare td{padding:18px 24px;text-align:left;border-bottom:1px solid var(--line)}
@@ -315,6 +344,14 @@ footer{background:#07131f;color:rgba(255,255,255,.6);padding:50px 0 34px;font-si
   .faq-side{position:static}
   .benefit,.cond,.auth,.ws,.step,details,.compare,.player,.portrait,.loc{break-inside:avoid}
   details::details-content{content-visibility:visible;display:block}
+  .why{padding-top:70px}
+  .hscroll{height:auto!important}
+  .hs-sticky{position:static;height:auto;padding-top:0}
+  .hs-track{width:auto;flex-wrap:wrap;transform:none!important;padding:0 24px}
+  .hs-intro{width:100%}
+  .hs-card{transform:none!important;opacity:1!important;width:calc(33.3% - 18px);height:auto;min-height:0;break-inside:avoid}
+  .hs-num{font-size:3.5rem}
+  .hs-bar,.hs-hint{display:none}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.reveal{opacity:1;transform:none}}
 </style>
@@ -387,38 +424,45 @@ footer{background:#07131f;color:rgba(255,255,255,.6);padding:50px 0 34px;font-si
 
 <!-- WHY ENDOSCOPIC -->
 <section id="why" class="why">
+  <div class="hscroll" id="hscroll">
+    <div class="hs-sticky">
+      <div class="hs-track" id="hsTrack">
+        <div class="hs-intro">
+          <span class="eyebrow">Why choose endoscopic surgery</span>
+          <h2>Minimally invasive spine surgery, maximum precision.</h2>
+          <p class="lead">Through an incision smaller than a fingertip, a high-definition endoscope gives a magnified, crystal-clear view of the nerve — so the problem is treated, and the healthy muscle is left alone.</p>
+          <span class="hs-hint">Keep scrolling <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+        <article class="hs-card">
+          <div class="hs-top"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h16"/><path d="M8 9v6M16 9v6"/></svg></div><span class="hs-num">01</span></div>
+          <div><small>Keyhole</small><h3>Tiny incision</h3><p>A single small keyhole incision instead of a long open cut — minimal scarring.</p></div>
+        </article>
+        <article class="hs-card">
+          <div class="hs-top"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-4.5-7-11a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 6.5-7 11-7 11z"/></svg></div><span class="hs-num">02</span></div>
+          <div><small>Muscle-sparing</small><h3>Minimal muscle damage</h3><p>Muscles are gently dilated, not cut or stripped from the spine.</p></div>
+        </article>
+        <article class="hs-card">
+          <div class="hs-top"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg></div><span class="hs-num">03</span></div>
+          <div><small>Comfort</small><h3>Less pain, less blood loss</h3><p>Significantly less post-operative pain and negligible blood loss.</p></div>
+        </article>
+        <article class="hs-card">
+          <div class="hs-top"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="13" cy="4" r="2"/><path d="M10 22l2-7 3 3v4M7 13l3-5 4 1 3 4"/></svg></div><span class="hs-num">04</span></div>
+          <div><small>Day care</small><h3>Walk the same day</h3><p>A day-care procedure — most patients walk the same day and go home within 24 hours.</p></div>
+        </article>
+        <article class="hs-card">
+          <div class="hs-top"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="M21 21l-5-5M11 8v6M8 11h6"/></svg></div><span class="hs-num">05</span></div>
+          <div><small>Safety</small><h3>Lower complication rate</h3><p>A magnified, clear field of vision through continuous saline irrigation means greater safety.</p></div>
+        </article>
+        <article class="hs-card">
+          <div class="hs-top"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5M12 7v5l3 3"/></svg></div><span class="hs-num">06</span></div>
+          <div><small>Recovery</small><h3>Faster return to life</h3><p>Back to work and daily activities much earlier than after open spine surgery.</p></div>
+        </article>
+      </div>
+      <div class="hs-bar"><span><b id="hsNow">01</b> / 06</span><div class="hs-progress"><i id="hsFill"></i></div></div>
+    </div>
+  </div>
+
   <div class="wrap">
-    <div class="sec-head reveal">
-      <span class="eyebrow">Why choose endoscopic surgery</span>
-      <h2>Minimally invasive spine surgery, maximum precision.</h2>
-      <p class="lead">Through an incision smaller than a fingertip, a high-definition endoscope gives a magnified, crystal-clear view of the nerve — so the problem is treated, and the healthy muscle is left alone.</p>
-    </div>
-    <div class="benefits reveal">
-      <div class="benefit">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h16"/><path d="M8 9v6M16 9v6"/></svg></div>
-        <h3>Tiny incision</h3><p>A single small keyhole incision instead of a long open cut — minimal scarring.</p>
-      </div>
-      <div class="benefit">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-4.5-7-11a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 6.5-7 11-7 11z"/></svg></div>
-        <h3>Minimal muscle damage</h3><p>Muscles are gently dilated, not cut or stripped from the spine.</p>
-      </div>
-      <div class="benefit">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg></div>
-        <h3>Less pain, less blood loss</h3><p>Significantly less post-operative pain and negligible blood loss.</p>
-      </div>
-      <div class="benefit">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="13" cy="4" r="2"/><path d="M10 22l2-7 3 3v4M7 13l3-5 4 1 3 4"/></svg></div>
-        <h3>Walk the same day</h3><p>A day-care procedure — most patients walk the same day and go home within 24 hours.</p>
-      </div>
-      <div class="benefit">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="M21 21l-5-5M11 8v6M8 11h6"/></svg></div>
-        <h3>Lower complication rate</h3><p>A magnified, clear field of vision through continuous saline irrigation means greater safety.</p>
-      </div>
-      <div class="benefit">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5M12 7v5l3 3"/></svg></div>
-        <h3>Faster return to life</h3><p>Back to work and daily activities much earlier than after open spine surgery.</p>
-      </div>
-    </div>
 
     <div class="compare reveal">
       <table>
@@ -642,6 +686,47 @@ document.querySelectorAll('[data-count]').forEach(el => {
   const tick = t => { const p = Math.min((t - t0) / dur, 1); el.textContent = Math.round(end * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(tick); };
   requestAnimationFrame(tick);
 });
+
+// Why section: vertical scroll drives a horizontal track; cards turn like pages near centre
+const hs = document.getElementById('hscroll'), track = document.getElementById('hsTrack');
+const hsCards = [...track.querySelectorAll('.hs-card')], hsFill = document.getElementById('hsFill'), hsNow = document.getElementById('hsNow');
+const flat = matchMedia('(max-width:768px), (prefers-reduced-motion:reduce)');
+function hsUpdate() {
+  let p;
+  if (flat.matches) {
+    p = track.scrollLeft / Math.max(1, track.scrollWidth - track.clientWidth);
+  } else {
+    p = Math.min(Math.max(-hs.getBoundingClientRect().top / (hs.offsetHeight - innerHeight), 0), 1);
+    track.style.transform = `translate3d(${-p * (track.scrollWidth - innerWidth)}px,0,0)`;
+  }
+  hsFill.style.width = p * 100 + '%';
+  let best = 0, bestD = 9;
+  hsCards.forEach((c, i) => {
+    const r = c.getBoundingClientRect();
+    const d = Math.max(-1, Math.min(1, (r.left + r.width / 2 - innerWidth / 2) / innerWidth));
+    if (!flat.matches) {
+      c.style.transform = `perspective(1200px) rotateY(${d * -24}deg) scale(${1 - Math.abs(d) * .1})`;
+      c.style.opacity = 1 - Math.abs(d) * .45;
+    }
+    if (Math.abs(d) < bestD) { bestD = Math.abs(d); best = i; }
+  });
+  hsCards.forEach((c, i) => c.classList.toggle('active', i === best));
+  hsNow.textContent = String(best + 1).padStart(2, '0');
+}
+function hsSize() {
+  if (flat.matches) {
+    hs.style.height = track.style.transform = '';
+    hsCards.forEach(c => c.style.transform = c.style.opacity = '');
+  } else {
+    hs.style.height = (track.scrollWidth - innerWidth + innerHeight) + 'px';
+  }
+  hsUpdate();
+}
+addEventListener('scroll', () => requestAnimationFrame(hsUpdate), {passive:true});
+track.addEventListener('scroll', () => requestAnimationFrame(hsUpdate), {passive:true});
+addEventListener('resize', hsSize);
+addEventListener('load', hsSize);
+hsSize();
 
 // Surgery film: custom play overlay
 const player = document.getElementById('player'), film = document.getElementById('filmVideo');
