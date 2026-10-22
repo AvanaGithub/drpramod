@@ -152,13 +152,27 @@ header.scrolled{background:rgba(11,29,46,.94);backdrop-filter:blur(12px);box-sha
 .compare tr:last-child td{border-bottom:0}
 
 /* Conditions */
-.cond-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-.cond{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:0 26px 30px;transition:.3s;overflow:hidden}
-.cond img{width:calc(100% + 52px);max-width:none;margin:0 -26px 22px;aspect-ratio:8/5;object-fit:cover;border-bottom:1px solid var(--line)}
-.cond:hover{border-color:var(--teal);transform:translateY(-4px);box-shadow:0 18px 40px -20px rgba(13,138,134,.4)}
-.cond small{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);font-weight:600}
-.cond h3{margin:10px 0 8px;font-size:1.2rem}
-.cond p{font-size:.92rem;color:var(--ink-soft)}
+/* Bento layout: feature (2x2), wide (2x1), tall (1x2) and square tiles */
+.cond-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:270px;grid-auto-flow:dense;gap:18px}
+.cond{position:relative;border-radius:var(--radius);overflow:hidden;color:#fff;background:var(--ink);display:flex;flex-direction:column;justify-content:flex-end;padding:26px;isolation:isolate}
+.cond.feature{grid-column:span 2;grid-row:span 2;padding:38px}
+.cond.wide{grid-column:span 2}
+.cond.tall{grid-row:span 2}
+.cond img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform 1.2s ease}
+.cond::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(to top,rgba(7,16,27,.95) 0%,rgba(7,16,27,.7) 38%,rgba(7,16,27,.15) 75%,rgba(7,16,27,.05) 100%)}
+.cond:hover img{transform:scale(1.06)}
+.cond small{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:#ff9b85;font-weight:700}
+.cond small::before{content:"";width:7px;height:7px;border-radius:50%;background:#ff6b4f;box-shadow:0 0 0 4px rgba(255,107,79,.25)}
+.cond h3{margin:8px 0 6px;font-size:1.35rem}
+.cond p{font-size:.92rem;color:rgba(255,255,255,.8);max-width:46ch}
+.cond.feature h3{font-size:clamp(1.8rem,3vw,2.5rem)}
+.cond.feature p{font-size:1.02rem}
+.symptoms{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.symptoms span{font-size:.8rem;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(4px)}
+.cond.cta{background:linear-gradient(140deg,var(--teal) 0%,var(--teal-deep) 55%,var(--ink) 100%);justify-content:space-between}
+.cond.cta::after{display:none}
+.cond.cta h3{font-size:1.45rem}
+.cond.cta a{align-self:flex-start;margin-top:16px;font-weight:600;font-size:.92rem;border-bottom:1.5px solid rgba(255,255,255,.6);padding-bottom:2px}
 .regions{display:flex;justify-content:center;gap:12px;margin-top:40px;flex-wrap:wrap}
 .regions span{padding:10px 20px;border-radius:999px;background:var(--teal-tint);color:var(--teal-deep);font-weight:600;font-size:.9rem}
 
@@ -265,6 +279,7 @@ footer{background:#07131f;color:rgba(255,255,255,.6);padding:50px 0 34px;font-si
   .faq-side{position:static}
   .benefits{grid-template-columns:repeat(2,1fr)}
   .cond-grid,.auth-grid{grid-template-columns:repeat(2,1fr)}
+  .cond-grid{grid-auto-rows:250px}
   .steps{grid-template-columns:1fr 1fr;row-gap:36px}
   .step::after{display:none}
   .portrait{max-width:440px}
@@ -278,6 +293,10 @@ footer{background:#07131f;color:rgba(255,255,255,.6);padding:50px 0 34px;font-si
   .stats{grid-template-columns:repeat(2,1fr)}
   .stat b{font-size:2.1rem}
   .benefits,.cond-grid,.auth-grid,.steps,.workshop,.row{grid-template-columns:1fr}
+  .cond-grid{grid-auto-rows:auto}
+  .cond,.cond.wide,.cond.tall{grid-column:auto;grid-row:auto;min-height:290px}
+  .cond.feature{grid-column:auto;grid-row:auto;min-height:440px;padding:28px}
+  .cond.cta{min-height:0}
   .gallery{grid-template-columns:1fr 1fr;grid-template-rows:200px 140px 140px}
   .ph:first-child{grid-column:span 2;grid-row:auto}
   .compare{overflow-x:auto}
@@ -426,14 +445,24 @@ footer{background:#07131f;color:rgba(255,255,255,.6);padding:50px 0 34px;font-si
       <p class="lead">From a sciatica treatment specialist's everyday cases to complex spinal pathology across the entire spine.</p>
     </div>
     <div class="cond-grid">
-      <article class="cond reveal"><img src="assets/img/conditions/slip-disc.svg" alt="Illustration of a slip disc (lumbar disc herniation) pressing on the spinal nerve" loading="lazy"><small>Most common</small><h3>Slip Disc</h3><p>Lumbar disc herniation treated by endoscopic discectomy — the disc fragment removed through a keyhole.</p></article>
-      <article class="cond reveal"><img src="assets/img/conditions/sciatica.svg" alt="Illustration of sciatica: pain radiating from the lower spine down the leg" loading="lazy"><small>Leg pain</small><h3>Sciatica</h3><p>Radiating leg pain and numbness from a compressed nerve root, relieved with precision decompression.</p></article>
-      <article class="cond reveal"><img src="assets/img/conditions/spinal-stenosis.svg" alt="Illustration comparing a normal spinal canal with a narrowed canal in spinal stenosis" loading="lazy"><small>Narrowing</small><h3>Spinal Canal Stenosis</h3><p>Endoscopic decompression to free compressed nerves and restore walking distance.</p></article>
-      <article class="cond reveal"><img src="assets/img/conditions/spondylolisthesis.svg" alt="Illustration of spondylolisthesis: one vertebra slipped forward over the one below" loading="lazy"><small>Instability</small><h3>Spondylolisthesis</h3><p>Slippage of one vertebra over another, managed with minimally invasive techniques.</p></article>
-      <article class="cond reveal"><img src="assets/img/conditions/spinal-infections.svg" alt="Illustration of an infected spinal disc" loading="lazy"><small>Infection</small><h3>Spinal Infections</h3><p>Endoscopic debridement and drainage with minimal disruption to surrounding tissue.</p></article>
-      <article class="cond reveal"><img src="assets/img/conditions/spinal-tumors.svg" alt="Illustration of a spinal tumor compressing the spinal cord" loading="lazy"><small>Growths</small><h3>Spinal Tumors</h3><p>Selected spinal tumors addressed with precision minimally invasive approaches.</p></article>
-      <article class="cond reveal"><img src="assets/img/conditions/spinal-deformities.svg" alt="Illustration of a curved spine (spinal deformity) against a straight reference line" loading="lazy"><small>Alignment</small><h3>Spinal Deformities</h3><p>Expert evaluation and treatment of deformities of the cervical, thoracic and lumbar spine.</p></article>
-      <article class="cond reveal"><img src="assets/img/conditions/cervical-disc.svg" alt="Illustration of a cervical disc bulge in the neck causing arm pain" loading="lazy"><small>Neck</small><h3>Cervical Disc Problems</h3><p>Neck and arm pain from cervical disc disease, treated with endoscopic techniques.</p></article>
+      <!-- Photos: Unsplash (free licence) -->
+      <article class="cond feature reveal"><img src="assets/img/conditions/slip-disc.jpg" alt="Spine model showing a herniated (slipped) disc in red" loading="lazy">
+        <small>Most common</small><h3>Slip Disc</h3>
+        <p>Lumbar disc herniation treated by endoscopic discectomy — the disc fragment removed through a keyhole.</p>
+        <div class="symptoms"><span>Severe lower back pain</span><span>Pain shooting down the leg</span><span>Numbness &amp; tingling</span><span>Leg weakness</span></div>
+      </article>
+      <article class="cond wide reveal"><img src="assets/img/conditions/sciatica.jpg" alt="Person clutching their lower back in pain" loading="lazy"><small>Leg pain</small><h3>Sciatica</h3><p>Radiating leg pain and numbness from a compressed nerve root, relieved with precision decompression.</p></article>
+      <article class="cond reveal"><img src="assets/img/conditions/spinal-stenosis.jpg" alt="Older man bent over, holding his aching back" loading="lazy"><small>Narrowing</small><h3>Spinal Canal Stenosis</h3><p>Endoscopic decompression to free compressed nerves and restore walking distance.</p></article>
+      <article class="cond reveal"><img src="assets/img/conditions/spondylolisthesis.jpg" alt="X-ray of the lumbar spine and pelvis" loading="lazy"><small>Instability</small><h3>Spondylolisthesis</h3><p>Slippage of one vertebra over another, managed with minimally invasive techniques.</p></article>
+      <article class="cond reveal"><img src="assets/img/conditions/spinal-infections.jpg" alt="Patient lying in a hospital bed" loading="lazy"><small>Infection</small><h3>Spinal Infections</h3><p>Endoscopic debridement and drainage with minimal disruption to surrounding tissue.</p></article>
+      <article class="cond wide reveal"><img src="assets/img/conditions/spinal-tumors.jpg" alt="Patient being moved into an MRI scanner" loading="lazy"><small>Growths</small><h3>Spinal Tumors</h3><p>Selected spinal tumors addressed with precision minimally invasive approaches.</p></article>
+      <article class="cond tall reveal"><img src="assets/img/conditions/spinal-deformities.jpg" alt="Black-and-white photo of a bare back showing curvature of the spine" loading="lazy"><small>Alignment</small><h3>Spinal Deformities</h3><p>Expert evaluation and treatment of deformities of the cervical, thoracic and lumbar spine.</p></article>
+      <article class="cond wide reveal"><img src="assets/img/conditions/cervical-disc.jpg" alt="Person holding their neck, with the area of pain highlighted" loading="lazy"><small>Neck</small><h3>Cervical Disc Problems</h3><p>Neck and arm pain from cervical disc disease, treated with endoscopic techniques.</p></article>
+      <article class="cond cta reveal">
+        <h3>Not sure what's causing your pain?</h3>
+        <p>Share your MRI report and get an expert opinion from Dr. Lokhande.</p>
+        <a href="#contact">Share your MRI →</a>
+      </article>
     </div>
     <div class="regions reveal"><span>Cervical spine</span><span>Thoracic spine</span><span>Lumbar spine</span></div>
   </div>
