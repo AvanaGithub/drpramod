@@ -12,6 +12,7 @@
 <meta property="og:description" content="Precision full endoscopic spine surgery with faster recovery, minimal pain and excellent outcomes. 24+ years, 5000+ surgeries.">
 <meta property="og:image" content="assets/img/dr-pramod-lokhande.jpg">
 <meta name="theme-color" content="#0b1d2e">
+<link rel="icon" type="image/svg+xml" href="assets/img/logo/gurukrupa-emblem.svg">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,6 +27,7 @@
   "medicalSpecialty": ["Orthopedic", "SpineSurgery"],
   "image": "assets/img/dr-pramod-lokhande.jpg",
   "areaServed": ["Pune", "Mumbai", "Maharashtra", "India"],
+  "worksFor": { "@type": "MedicalClinic", "name": "Gurukrupa Spine Clinic", "logo": "assets/img/logo/gurukrupa-logo.svg", "slogan": "Passion, Commitment, Experience" },
   "address": { "@type": "PostalAddress", "addressLocality": "Pune", "addressRegion": "Maharashtra", "addressCountry": "IN" },
   "availableService": [
     { "@type": "MedicalProcedure", "name": "Full Endoscopic Spine Surgery" },
@@ -88,9 +90,11 @@ section{padding:110px 0}
 header{position:fixed;inset:0 0 auto 0;z-index:50;transition:.3s}
 header.scrolled{background:rgba(11,29,46,.94);backdrop-filter:blur(12px);box-shadow:0 1px 0 rgba(255,255,255,.06)}
 .nav{display:flex;align-items:center;justify-content:space-between;height:78px;color:#fff}
-.brand{display:flex;flex-direction:column;line-height:1.1}
+.brand{display:flex;align-items:center;gap:14px;line-height:1.1}
+.brand img{height:48px;width:auto}
+.brand-text{display:flex;flex-direction:column}
 .brand b{font-family:var(--serif);font-weight:500;font-size:1.3rem}
-.brand span{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;opacity:.7;margin-top:4px}
+.brand-text span{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;opacity:.7;margin-top:4px}
 .nav ul{display:flex;gap:30px;list-style:none;font-size:.92rem}
 .nav ul a{opacity:.85}
 .nav ul a:hover{opacity:1}
@@ -290,7 +294,11 @@ form .btn{width:100%;justify-content:center;margin-top:8px}
 
 footer{background:#07131f;color:rgba(255,255,255,.6);padding:50px 0 34px;font-size:.86rem}
 .foot{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap}
-.foot .brand b{color:#fff}
+.foot{align-items:flex-end}
+.foot-brand{display:flex;align-items:center;gap:28px;flex-wrap:wrap}
+.foot-brand img{height:130px;width:auto;opacity:.95}
+.foot-brand p{line-height:1.6}
+.foot-brand b{color:#fff;font-family:var(--serif);font-weight:500;font-size:1.15rem}
 .kw{margin-top:28px;padding-top:24px;border-top:1px solid rgba(255,255,255,.08);font-size:.78rem;line-height:1.9}
 .disclaimer{margin-top:14px;font-size:.76rem;opacity:.7}
 
@@ -319,6 +327,10 @@ footer{background:#07131f;color:rgba(255,255,255,.6);padding:50px 0 34px;font-si
   section{padding:76px 0}
   .wrap{padding:0 18px}
   .nav .btn{display:none}
+  .brand{gap:10px}
+  .brand img{height:40px}
+  .brand b{font-size:1.1rem}
+  .foot-brand img{height:110px}
   .stats{grid-template-columns:repeat(2,1fr)}
   .stat b{font-size:2.1rem}
   .benefits,.cond-grid,.auth-grid,.steps,.workshop,.row{grid-template-columns:1fr}
@@ -360,7 +372,7 @@ footer{background:#07131f;color:rgba(255,255,255,.6);padding:50px 0 34px;font-si
 
 <header id="top">
   <div class="wrap nav">
-    <a href="#top" class="brand"><b>Dr. Pramod V. Lokhande</b><span>Full Endoscopic Spine Surgeon</span></a>
+    <a href="#top" class="brand"><img src="assets/img/logo/gurukrupa-emblem-white.svg" alt="Gurukrupa Spine Clinic logo"><span class="brand-text"><b>Dr. Pramod V. Lokhande</b><span>Gurukrupa Spine Clinic</span></span></a>
     <ul id="menu">
       <li><a href="#about">About</a></li>
       <li><a href="#why">Why Endoscopic</a></li>
@@ -658,7 +670,10 @@ footer{background:#07131f;color:rgba(255,255,255,.6);padding:50px 0 34px;font-si
 <footer>
   <div class="wrap">
     <div class="foot">
-      <div class="brand"><b>Dr. Pramod V. Lokhande</b><span>Full Endoscopic &amp; Minimally Invasive Spine Surgeon</span></div>
+      <div class="foot-brand">
+        <img src="assets/img/logo/gurukrupa-logo-white.svg" alt="Gurukrupa Spine Clinic — Passion, Commitment, Experience">
+        <p><b>Dr. Pramod V. Lokhande</b><br>Full Endoscopic &amp; Minimally Invasive Spine Surgeon</p>
+      </div>
       <div>© <span id="yr"></span> Dr. Pramod V. Lokhande. All rights reserved.</div>
     </div>
     <p class="kw">Endoscopic Spine Surgery India · Best Endoscopic Spine Surgeon in India · Endoscopic Discectomy India · Minimally Invasive Spine Surgery India · Slip Disc Treatment without Open Surgery · Sciatica Treatment Specialist · Spine Surgery with Faster Recovery · Endoscopic Spine Surgery in Pune · Endoscopic Spine Surgery in Mumbai · Spine Surgeon in Maharashtra</p>
