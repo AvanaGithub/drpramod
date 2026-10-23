@@ -139,9 +139,11 @@ header.scrolled{background:rgba(11,29,46,.94);backdrop-filter:blur(12px);box-sha
 /* Hero visual: back-pain photo with the doctor's card overlapping it */
 .hero-visual{position:relative}
 .hero-visual .hv-main{position:relative;border-radius:24px;aspect-ratio:4/5;overflow:hidden;width:100%;background:#0b1d2e;box-shadow:0 40px 80px -30px rgba(0,0,0,.7);border:1px solid rgba(255,255,255,.15)}
-.hv-main img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 35%;opacity:0;transform:scale(1.06);transition:opacity 1.6s ease}
-.hv-main img.on{opacity:1;animation:kenburns 8s ease-out forwards}
-.hv-doc{position:absolute;left:-34px;bottom:30px;display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.97);color:var(--ink);padding:10px 20px 10px 10px;border-radius:18px;max-width:330px;box-shadow:0 24px 50px -14px rgba(0,0,0,.55);border-left:4px solid var(--teal)}
+.hv-main img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 40%}
+/* Pulsing pain glow over the lower back of the hero image */
+.hv-pulse{position:absolute;left:50%;top:79%;width:44%;aspect-ratio:3/4;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(255,60,40,.55),rgba(255,40,30,0));mix-blend-mode:screen;animation:painpulse 2.6s ease-in-out infinite}
+@keyframes painpulse{0%,100%{opacity:.25;transform:translate(-50%,-50%) scale(.85)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}}
+.hv-doc{position:relative;margin:-38px 0 0 -34px;display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.97);color:var(--ink);padding:10px 20px 10px 10px;border-radius:18px;max-width:330px;box-shadow:0 24px 50px -14px rgba(0,0,0,.55);border-left:4px solid var(--teal)}
 .hv-doc img{width:74px;height:74px;border-radius:14px;object-fit:cover;object-position:center 20%;flex-shrink:0}
 .hv-doc b{display:block;font-family:var(--serif);font-weight:500;font-size:1.08rem;margin-bottom:2px}
 .hv-doc span{font-size:.82rem;font-weight:600;line-height:1.35;color:var(--ink-soft)}
@@ -441,7 +443,7 @@ footer h4{color:#fff;font-size:.78rem;letter-spacing:.16em;text-transform:upperc
   .hero-grid,.about-grid,.approach-grid,.endo-grid,.faq-grid,.appt-grid,.fellow{grid-template-columns:1fr;gap:40px}
   .fellow-info{position:static}
   .hero-visual{max-width:420px}
-  .hv-doc{left:14px;right:14px;bottom:16px;max-width:none}
+  .hv-doc{margin:-30px 14px 0;max-width:none}
   .faq-side,.appt-grid > div:first-child{position:static}
   .portrait{position:static;max-width:440px}
   .portrait .badge{right:16px}
@@ -502,7 +504,8 @@ footer h4{color:#fff;font-size:.78rem;letter-spacing:.16em;text-transform:upperc
   .hs-card{transform:none!important;opacity:1!important;width:calc(33.3% - 18px);height:auto;min-height:0}
   .hs-media{flex:none;height:150px}
   .hs-num{font-size:3.2rem}
-  .hero-bg img,.hv-main img{transition:none;animation:none}
+  .hero-bg img{transition:none;animation:none}
+  .hv-pulse{display:none}
   .moments-track{animation:none;flex-wrap:wrap;width:auto}
   .moments-track span,.lightbox{display:none}
   .featured figure,.auth{break-inside:avoid}
@@ -561,11 +564,10 @@ footer h4{color:#fff;font-size:.78rem;letter-spacing:.16em;text-transform:upperc
       </div>
     </div>
     <figure class="hero-visual">
-      <!-- Spine images: Unsplash (free licence); they crossfade -->
+      <!-- Base photo: Unsplash (free licence); spine and pain glow drawn over it -->
       <div class="hv-main">
-        <img src="assets/img/hero/spine-xray.jpg" alt="X-ray style image of the human cervical spine" class="on">
-        <img src="assets/img/hero/spine-anatomy.jpg" alt="Anatomical model of the back showing the spine">
-        <img src="assets/img/hero/spine-column.jpg" alt="Illustration of the human vertebral column">
+        <img src="assets/img/hero/spine-pain.jpg" alt="A man's back with the spine highlighted and the lower back glowing red with pain" class="on">
+        <i class="hv-pulse" aria-hidden="true"></i>
       </div>
       <figcaption class="hv-doc">
         <img src="assets/img/dr-pramod-lokhande.jpg?v=2" alt="Portrait of Dr. Pramod V. Lokhande, endoscopic and minimally invasive spine surgeon">
@@ -1226,7 +1228,7 @@ document.addEventListener('click', e => {
 });
 addEventListener('keydown', e => { if (e.key === 'Escape') lb.hidden = true; });
 
-// Hero: crossfade the back-pain backdrop and the spine images in the card
+// Hero: crossfade the back-pain backdrop photos
 function crossfade(selector, ms) {
   const imgs = [...document.querySelectorAll(selector)];
   if (imgs.length < 2 || matchMedia('(prefers-reduced-motion:reduce)').matches) return;
@@ -1238,7 +1240,6 @@ function crossfade(selector, ms) {
   }, ms);
 }
 crossfade('.hero-bg img', 7000);
-crossfade('.hv-main img', 5000);
 
 // Consultation and fellowship forms are emailed to the doctor through FormSubmit (formsubmit.co).
 // Set DOCTOR_EMAIL to turn delivery on. The first submission sends FormSubmit's activation email to
