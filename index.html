@@ -118,7 +118,12 @@ header.scrolled{background:rgba(11,29,46,.94);backdrop-filter:blur(12px);box-sha
 .hero{position:relative;min-height:100vh;display:flex;align-items:center;color:#fff;overflow:hidden;padding:140px 0 90px;
   background:radial-gradient(ellipse at 75% 30%,#164a63 0%,#0b1d2e 60%)}
 .hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(8,22,36,.95) 0%,rgba(8,22,36,.82) 50%,rgba(8,22,36,.5) 100%)}
+/* Back-pain photos crossfade behind the hero copy (slow zoom on the active one) */
+.hero-bg{position:absolute;inset:0;overflow:hidden}
+.hero-bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;opacity:0;transform:scale(1.1);transition:opacity 2s ease}
+.hero-bg img.on{opacity:.85;animation:kenburns 9s ease-out forwards}
+@keyframes kenburns{from{transform:scale(1.1)}to{transform:scale(1)}}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(8,22,36,.92) 0%,rgba(8,22,36,.72) 48%,rgba(8,22,36,.4) 100%)}
 .hero .wrap{position:relative;z-index:2;width:100%}
 .hero-grid{display:grid;grid-template-columns:7fr 5fr;gap:64px;align-items:center}
 .hero .eyebrow{color:var(--teal-light)}
@@ -203,17 +208,21 @@ header.scrolled{background:rgba(11,29,46,.94);backdrop-filter:blur(12px);box-sha
 .hs-hint{display:inline-flex;align-items:center;gap:12px;margin-top:30px;font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:var(--teal-light);font-weight:600}
 .hs-hint svg{width:22px;height:22px;animation:nudge 1.6s ease-in-out infinite}
 @keyframes nudge{50%{transform:translateX(8px)}}
-.hs-card{position:relative;overflow:hidden;width:min(390px,78vw);height:min(440px,60vh);min-height:350px;flex-shrink:0;display:flex;flex-direction:column;justify-content:space-between;padding:36px 34px;border-radius:24px;background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.015));border:1px solid rgba(255,255,255,.1);transform-origin:center;transition:border-color .5s,background .5s,box-shadow .5s}
+.hs-card{position:relative;overflow:hidden;width:min(390px,78vw);height:min(470px,66vh);min-height:420px;flex-shrink:0;display:flex;flex-direction:column;padding:0;border-radius:24px;background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.015));border:1px solid rgba(255,255,255,.1);transform-origin:center;transition:border-color .5s,background .5s,box-shadow .5s}
 .hs-card::before{content:"";position:absolute;width:260px;height:260px;right:-90px;top:-90px;border-radius:50%;background:radial-gradient(circle,rgba(13,138,134,.45),transparent 70%);opacity:0;transition:opacity .6s}
 .hs-card.active{border-color:rgba(127,214,209,.55);background:linear-gradient(160deg,rgba(13,138,134,.32),rgba(13,138,134,.04));box-shadow:0 30px 60px -30px rgba(0,0,0,.6)}
 .hs-card.active::before{opacity:1}
-.hs-top{display:flex;justify-content:space-between;align-items:flex-start;position:relative}
-.hs-card .ic{width:56px;height:56px;border-radius:14px;background:rgba(13,138,134,.2);display:grid;place-items:center;color:var(--teal-light)}
-.hs-card .ic svg{width:26px;height:26px}
-.hs-num{font-family:var(--serif);font-size:5.4rem;line-height:.8;color:transparent;-webkit-text-stroke:1.2px rgba(127,214,209,.45);transition:color .5s}
-.hs-card.active .hs-num{color:rgba(127,214,209,.18)}
-.hs-card h3{font-size:1.7rem;margin-bottom:12px}
-.hs-card p{font-size:.98rem;color:rgba(255,255,255,.72)}
+.hs-media{position:relative;flex:1;min-height:0;overflow:hidden}
+.hs-media img{width:100%;height:100%;object-fit:cover;filter:saturate(.85);transform:scale(1.04);transition:transform 1.2s ease,filter .6s}
+.hs-media::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(11,29,46,.15) 0%,rgba(11,29,46,.25) 55%,#0f2537 100%)}
+.hs-card.active .hs-media img{transform:scale(1);filter:saturate(1)}
+.hs-card .ic{position:absolute;z-index:1;top:18px;left:18px;width:48px;height:48px;border-radius:12px;background:rgba(11,29,46,.7);backdrop-filter:blur(6px);display:grid;place-items:center;color:var(--teal-light)}
+.hs-card .ic svg{width:24px;height:24px}
+.hs-num{position:absolute;z-index:1;right:20px;bottom:-6px;font-family:var(--serif);font-size:4.6rem;line-height:1;color:transparent;-webkit-text-stroke:1.2px rgba(159,227,222,.8);transition:color .5s}
+.hs-card.active .hs-num{color:rgba(127,214,209,.3)}
+.hs-body{padding:22px 30px 28px;position:relative}
+.hs-card h3{font-size:1.5rem;margin-bottom:10px}
+.hs-card p{font-size:.95rem;color:rgba(255,255,255,.72)}
 .hs-bar{display:flex;align-items:center;gap:22px;width:100%;max-width:var(--max);margin:0 auto;padding:0 24px;font-size:.85rem;color:rgba(255,255,255,.55)}
 .hs-bar b{color:#fff;font-family:var(--serif);font-weight:500;font-size:1.1rem}
 .hs-progress{flex:1;height:2px;background:rgba(255,255,255,.12);position:relative;border-radius:2px}
@@ -230,7 +239,9 @@ header.scrolled{background:rgba(11,29,46,.94);backdrop-filter:blur(12px);box-sha
   .hs-track{width:auto;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:18px;padding:0 18px 6px;gap:16px;scrollbar-width:none}
   .hs-track::-webkit-scrollbar{display:none}
   .hs-intro{scroll-snap-align:start;padding-right:10px}
-  .hs-card{scroll-snap-align:center;height:auto;padding:30px 26px}
+  .hs-card{scroll-snap-align:center;height:auto;min-height:0}
+  .hs-media{flex:none;height:190px}
+  .hs-body{padding:20px 24px 26px}
   .hs-bar{padding:0 18px}
 }
 
@@ -252,10 +263,10 @@ header.scrolled{background:rgba(11,29,46,.94);backdrop-filter:blur(12px);box-sha
 .cond.feature dl{grid-template-columns:1fr}
 .cond dt{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:#ff9b85;font-weight:700;margin-bottom:4px}
 .cond dd{font-size:.86rem;color:rgba(255,255,255,.78);line-height:1.5}
-.cond.cta{background:linear-gradient(140deg,var(--teal) 0%,var(--teal-deep) 55%,var(--ink) 100%);justify-content:space-between}
-.cond.cta::after{display:none}
-.cond.cta h3::before{display:none}
-.cond.cta a{align-self:flex-start;margin-top:16px;font-weight:600;font-size:.92rem;border-bottom:1.5px solid rgba(255,255,255,.6);padding-bottom:2px}
+.cond-cta{margin-top:18px;border-radius:var(--radius);padding:34px 40px;color:#fff;background:linear-gradient(120deg,var(--teal) 0%,var(--teal-deep) 50%,var(--ink) 100%);display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.cond-cta h3{font-size:1.6rem;margin-bottom:6px}
+.cond-cta p{color:rgba(255,255,255,.82)}
+.cond-cta .btn{background:#fff;color:var(--teal-deep)}
 
 /* Compare */
 .compare-wrap{background:#fff;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line)}
@@ -284,6 +295,14 @@ header.scrolled{background:rgba(11,29,46,.94);backdrop-filter:blur(12px);box-sha
 .training h3{font-size:clamp(1.5rem,2.6vw,2rem);margin:10px 0 10px}
 .training p{color:rgba(255,255,255,.75);max-width:56ch}
 .training .btn{background:#fff;color:var(--ink)}
+.fellow{margin-top:24px;display:grid;grid-template-columns:5fr 7fr;gap:48px;padding:48px;border-radius:24px;background:var(--sand);align-items:start;scroll-margin-top:90px}
+.fellow-info{position:sticky;top:110px}
+.fellow-info h3{font-size:clamp(1.7rem,3vw,2.3rem);margin:12px 0 14px}
+.fellow-info p{color:var(--ink-soft)}
+.fellow-list{list-style:none;margin:22px 0;display:grid;gap:10px}
+.fellow-list li{display:flex;gap:12px;align-items:flex-start;font-weight:500}
+.fellow-list li::before{content:"";flex-shrink:0;width:20px;height:20px;margin-top:3px;border-radius:50%;background:var(--teal) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5L20 7'/%3E%3C/svg%3E") center/12px no-repeat}
+.fellow-small{font-size:.84rem;color:var(--muted)!important}
 
 /* Journey */
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;counter-reset:s}
@@ -380,7 +399,8 @@ footer h4{color:#fff;font-size:.78rem;letter-spacing:.16em;text-transform:upperc
   .nav ul.open{display:flex;flex-direction:column;position:absolute;top:78px;left:0;right:0;background:var(--ink);padding:24px;gap:18px}
 }
 @media (max-width:1024px){
-  .hero-grid,.about-grid,.approach-grid,.endo-grid,.faq-grid,.appt-grid{grid-template-columns:1fr;gap:48px}
+  .hero-grid,.about-grid,.approach-grid,.endo-grid,.faq-grid,.appt-grid,.fellow{grid-template-columns:1fr;gap:40px}
+  .fellow-info{position:static}
   .hero-portrait{max-width:380px}
   .hero-portrait figcaption{left:16px}
   .faq-side,.appt-grid > div:first-child{position:static}
@@ -412,7 +432,8 @@ footer h4{color:#fff;font-size:.78rem;letter-spacing:.16em;text-transform:upperc
   .cond dl{grid-template-columns:1fr}
   .suit{grid-template-columns:1fr;padding:32px 26px}
   .suit .no{grid-row:auto}
-  .quote,.better,.training{padding:32px 26px}
+  .quote,.better,.training,.cond-cta{padding:32px 26px}
+  .fellow{padding:26px 16px}
   .compare-wrap{overflow-x:auto}
   .compare-wrap table{min-width:640px}
   .compare-wrap th,.compare-wrap td{padding:14px;font-size:.88rem}
@@ -436,7 +457,9 @@ footer h4{color:#fff;font-size:.78rem;letter-spacing:.16em;text-transform:upperc
   .hs-track{width:auto;flex-wrap:wrap;transform:none!important;padding:0 24px}
   .hs-intro{width:100%}
   .hs-card{transform:none!important;opacity:1!important;width:calc(33.3% - 18px);height:auto;min-height:0}
-  .hs-num{font-size:3.5rem}
+  .hs-media{flex:none;height:150px}
+  .hs-num{font-size:3.2rem}
+  .hero-bg img{transition:none;animation:none}
   .hs-bar,.hs-hint{display:none}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.reveal{opacity:1;transform:none}}
@@ -464,6 +487,12 @@ footer h4{color:#fff;font-size:.78rem;letter-spacing:.16em;text-transform:upperc
 
 <!-- HERO -->
 <section id="home" class="hero">
+  <!-- Photos: Unsplash (free licence) -->
+  <div class="hero-bg" aria-hidden="true">
+    <img src="assets/img/hero/back-pain-1.jpg" alt="" class="on">
+    <img src="assets/img/hero/back-pain-2.jpg" alt="">
+    <img src="assets/img/hero/back-pain-3.jpg" alt="">
+  </div>
   <video autoplay muted loop playsinline preload="auto" aria-hidden="true">
     <source src="assets/videos/endoscopy-loop.mp4" type="video/mp4">
   </video>
@@ -657,28 +686,28 @@ footer h4{color:#fff;font-size:.78rem;letter-spacing:.16em;text-transform:upperc
           <span class="hs-hint">Keep scrolling <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
         <article class="hs-card">
-          <div class="hs-top"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h16"/><path d="M8 9v6M16 9v6"/></svg></div><span class="hs-num">01</span></div>
-          <div><h3>Smaller Incision</h3><p>Many endoscopic procedures can be performed through a small surgical opening.</p></div>
+          <div class="hs-media"><img src="assets/img/benefits/smaller-incision.jpg" alt="Surgeon performing a procedure in an operating room" loading="lazy"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h16"/><path d="M8 9v6M16 9v6"/></svg></div><span class="hs-num">01</span></div>
+          <div class="hs-body"><h3>Smaller Incision</h3><p>Many endoscopic procedures can be performed through a small surgical opening.</p></div>
         </article>
         <article class="hs-card">
-          <div class="hs-top"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-4.5-7-11a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 6.5-7 11-7 11z"/></svg></div><span class="hs-num">02</span></div>
-          <div><h3>Reduced Tissue Disruption</h3><p>Specialized instruments allow access to the affected area while limiting disruption to surrounding muscles and tissues.</p></div>
+          <div class="hs-media"><img src="assets/img/benefits/tissue.jpg" alt="Surgical instruments in an operating room" loading="lazy"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-4.5-7-11a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 6.5-7 11-7 11z"/></svg></div><span class="hs-num">02</span></div>
+          <div class="hs-body"><h3>Reduced Tissue Disruption</h3><p>Specialized instruments allow access to the affected area while limiting disruption to surrounding muscles and tissues.</p></div>
         </article>
         <article class="hs-card">
-          <div class="hs-top"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="M21 21l-5-5M11 8v6M8 11h6"/></svg></div><span class="hs-num">03</span></div>
-          <div><h3>Direct Visualization</h3><p>A high-definition endoscope provides a magnified view of the surgical area.</p></div>
+          <div class="hs-media"><img src="assets/img/benefits/visualization.jpg" alt="Endoscope with its high-definition monitor" loading="lazy"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="M21 21l-5-5M11 8v6M8 11h6"/></svg></div><span class="hs-num">03</span></div>
+          <div class="hs-body"><h3>Direct Visualization</h3><p>A high-definition endoscope provides a magnified view of the surgical area.</p></div>
         </article>
         <article class="hs-card">
-          <div class="hs-top"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21v-6h6v6M12 7v4M10 9h4"/></svg></div><span class="hs-num">04</span></div>
-          <div><h3>Shorter Hospital Stay</h3><p>Selected patients may be discharged on the same day or after a short hospital stay.</p></div>
+          <div class="hs-media"><img src="assets/img/benefits/hospital-stay.jpg" alt="Hospital room with a patient bed" loading="lazy"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21v-6h6v6M12 7v4M10 9h4"/></svg></div><span class="hs-num">04</span></div>
+          <div class="hs-body"><h3>Shorter Hospital Stay</h3><p>Selected patients may be discharged on the same day or after a short hospital stay.</p></div>
         </article>
         <article class="hs-card">
-          <div class="hs-top"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="13" cy="4" r="2"/><path d="M10 22l2-7 3 3v4M7 13l3-5 4 1 3 4"/></svg></div><span class="hs-num">05</span></div>
-          <div><h3>Earlier Mobilization</h3><p>Depending on the procedure and individual recovery, some patients may begin walking shortly after surgery.</p></div>
+          <div class="hs-media"><img src="assets/img/benefits/mobilization.jpg" alt="Older couple walking together on a garden path" loading="lazy"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="13" cy="4" r="2"/><path d="M10 22l2-7 3 3v4M7 13l3-5 4 1 3 4"/></svg></div><span class="hs-num">05</span></div>
+          <div class="hs-body"><h3>Earlier Mobilization</h3><p>Depending on the procedure and individual recovery, some patients may begin walking shortly after surgery.</p></div>
         </article>
         <article class="hs-card">
-          <div class="hs-top"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></div><span class="hs-num">06</span></div>
-          <div><h3>Recovery Tailored to the Patient</h3><p>Recovery depends on the condition treated, procedure performed, overall health, and rehabilitation requirements.</p></div>
+          <div class="hs-media"><img src="assets/img/benefits/recovery.jpg" alt="Physiotherapist guiding a patient through leg exercises" loading="lazy"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></div><span class="hs-num">06</span></div>
+          <div class="hs-body"><h3>Recovery Tailored to the Patient</h3><p>Recovery depends on the condition treated, procedure performed, overall health, and rehabilitation requirements.</p></div>
         </article>
       </div>
       <div class="hs-bar"><span><b id="hsNow">01</b> / 06</span><div class="hs-progress"><i id="hsFill"></i></div></div>
@@ -732,22 +761,30 @@ footer h4{color:#fff;font-size:.78rem;letter-spacing:.16em;text-transform:upperc
         <dl><div><dt>Common symptoms</dt><dd>Back pain, leg pain, stiffness, or symptoms associated with nerve compression.</dd></div>
             <div><dt>Treatment</dt><dd>Options depend on spinal stability, symptoms, and neurological findings.</dd></div></dl>
       </article>
+      <article class="cond wide reveal"><img src="assets/img/conditions/spondylosis.jpg" alt="X-ray of a curved, degenerated spine" loading="lazy">
+        <h3>Spondylosis</h3>
+        <p>Spondylosis describes age-related wear of the spinal discs and joints. It can affect the neck or the lower back and may narrow the spaces around the nerves.</p>
+        <dl><div><dt>Common symptoms</dt><dd>Neck or back pain and stiffness; if nerves are compressed, radiating pain, numbness, or weakness in the arms or legs.</dd></div>
+            <div><dt>Treatment</dt><dd>Often managed with physiotherapy and medication. Surgery may be considered when nerve compression causes persistent or progressive symptoms.</dd></div></dl>
+      </article>
       <article class="cond wide reveal"><img src="assets/img/conditions/cervical-disc.jpg" alt="Person holding the back of their neck where it hurts" loading="lazy">
         <h3>Cervical Disc Problems</h3>
         <p>Conditions affecting discs in the neck can cause pain or nerve-related symptoms.</p>
         <dl><div><dt>Common symptoms</dt><dd>Neck pain, arm pain, tingling, numbness, or weakness.</dd></div>
             <div><dt>Treatment</dt><dd>Care may involve rehabilitation, medication, or surgery when indicated.</dd></div></dl>
       </article>
-      <article class="cond xwide reveal"><img src="assets/img/conditions/spinal-tumors.jpg" alt="Patient being positioned for an MRI scan" loading="lazy">
+      <article class="cond wide reveal"><img src="assets/img/conditions/spinal-tumors.jpg" alt="Patient being positioned for an MRI scan" loading="lazy">
         <h3>Complex Spine Conditions</h3>
         <p>Dr. Lokhande’s clinical experience also includes the evaluation and surgical management of selected spinal infections, tumors, and deformities.</p>
         <p style="margin-top:8px">These conditions require individualized assessment and may involve multidisciplinary care.</p>
       </article>
-      <article class="cond cta reveal">
+    </div>
+    <div class="cond-cta reveal">
+      <div>
         <h3>Not Sure What’s Causing Your Symptoms?</h3>
         <p>An accurate diagnosis is the first step toward selecting appropriate treatment.</p>
-        <a href="#appointment">Book a Spine Consultation →</a>
-      </article>
+      </div>
+      <a href="#appointment" class="btn">Book a Spine Consultation</a>
     </div>
   </div>
 </section>
@@ -804,7 +841,63 @@ footer h4{color:#fff;font-size:.78rem;letter-spacing:.16em;text-transform:upperc
         <h3>Interested in learning full endoscopic spine surgery?</h3>
         <p>Explore Dr. Lokhande’s educational activities, workshops, and professional training opportunities.</p>
       </div>
-      <a href="#contact" class="btn">Explore Surgeon Training</a>
+      <a href="#fellowship" class="btn">Book a Fellowship</a>
+    </div>
+
+    <div class="fellow" id="fellowship">
+      <div class="fellow-info reveal">
+        <span class="eyebrow">Surgeon Training</span>
+        <h3>Book a Fellowship</h3>
+        <p>Tell us about your background and the training you are interested in. Your enquiry will be sent to Dr. Lokhande, and the team will contact you about availability and next steps.</p>
+        <ul class="fellow-list">
+          <li>Fellowship in full endoscopic spine surgery</li>
+          <li>Cadaveric training workshops</li>
+          <li>Live surgical demonstrations</li>
+          <li>Observership</li>
+        </ul>
+        <p class="fellow-small">Submitting an enquiry does not confirm a place. Programme dates, eligibility and any fees will be confirmed by the team.</p>
+      </div>
+
+      <form class="reveal js-mail-form" id="fellowForm" novalidate data-subject="Fellowship enquiry" data-success="Thank you. Your fellowship enquiry has been sent to Dr. Lokhande. The team will contact you with details.">
+        <h3>Fellowship Enquiry</h3>
+        <p class="form-intro">Fields marked with an asterisk (<span class="req">*</span>) are required.</p>
+        <p class="preview-note"><b>Preview:</b> online enquiries are not connected yet. Submitting this form will not send your details.</p>
+        <input type="hidden" name="form" value="Fellowship enquiry">
+        <div class="row">
+          <div class="field"><label for="w-name">Full Name <span class="req">*</span></label><input type="text" id="w-name" name="name" autocomplete="name" required></div>
+          <div class="field"><label for="w-email">Email Address <span class="req">*</span></label><input type="email" id="w-email" name="email" autocomplete="email" required></div>
+        </div>
+        <div class="row">
+          <div class="field"><label for="w-phone">Mobile Number <span class="req">*</span></label><input type="tel" id="w-phone" name="mobile" autocomplete="tel" pattern="[+0-9 \(\)\-]{8,20}" required aria-describedby="w-phone-hint"><small id="w-phone-hint">Include your country code, e.g. +91 98765 43210</small></div>
+          <div class="field"><label for="w-spec">Specialty <span class="req">*</span></label>
+            <select id="w-spec" name="specialty" required><option value="">Select an option</option><option>Orthopedic surgeon</option><option>Neurosurgeon</option><option>Spine surgeon</option><option>Resident / trainee</option><option>Other</option></select></div>
+        </div>
+        <div class="row">
+          <div class="field"><label for="w-inst">Hospital / Institution <span class="req">*</span></label><input type="text" id="w-inst" name="institution" autocomplete="organization" required></div>
+          <div class="field"><label for="w-city">City &amp; Country <span class="req">*</span></label><input type="text" id="w-city" name="city_country" required></div>
+        </div>
+        <div class="row">
+          <div class="field"><label for="w-years">Years in Practice</label>
+            <select id="w-years" name="years_in_practice"><option value="">Select an option</option><option>Less than 2 years</option><option>2–5 years</option><option>5–10 years</option><option>More than 10 years</option></select></div>
+          <div class="field"><label for="w-exp">Experience with Endoscopic Spine Surgery</label>
+            <select id="w-exp" name="endoscopic_experience"><option value="">Select an option</option><option>None yet</option><option>Observed cases</option><option>Performed under supervision</option><option>Performing independently</option></select></div>
+        </div>
+        <fieldset class="field">
+          <legend>Programme of Interest <span class="req">*</span></legend>
+          <div class="choices">
+            <label><input type="checkbox" name="programme" value="Fellowship"> Fellowship</label>
+            <label><input type="checkbox" name="programme" value="Cadaveric workshop"> Cadaveric workshop</label>
+            <label><input type="checkbox" name="programme" value="Live surgical demonstration"> Live surgical demonstration</label>
+            <label><input type="checkbox" name="programme" value="Observership"> Observership</label>
+          </div>
+        </fieldset>
+        <div class="field"><label for="w-when">Preferred Month or Dates</label><input type="text" id="w-when" name="preferred_dates" placeholder="e.g. March 2027, or flexible"></div>
+        <div class="field"><label for="w-msg">Message (Optional)</label><textarea id="w-msg" name="message" rows="3"></textarea></div>
+        <div class="hp" aria-hidden="true"><label for="w-company">Company</label><input type="text" id="w-company" name="company" tabindex="-1" autocomplete="off"></div>
+        <label class="consent"><input type="checkbox" name="consent" required> <span>I agree to be contacted about my fellowship enquiry. I understand that submitting this form does not confirm a training place. I have read the <a href="privacy.html">Privacy Notice</a>. <span class="req">*</span></span></label>
+        <button class="btn btn-primary" type="submit">Send Fellowship Enquiry</button>
+        <div class="form-note" role="status"></div>
+      </form>
     </div>
   </div>
 </section>
@@ -885,8 +978,9 @@ footer h4{color:#fff;font-size:.78rem;letter-spacing:.16em;text-transform:upperc
       </div>
     </div>
 
-    <form class="reveal" id="enquiry" novalidate>
+    <form class="reveal js-mail-form" id="enquiry" novalidate data-subject="New consultation request" data-success="Thank you. Your request has been sent to Dr. Lokhande’s appointment team. They will contact you to discuss scheduling.">
       <h3>Request a Spine Consultation</h3>
+      <input type="hidden" name="form" value="Consultation request">
       <p class="form-intro">Please complete the form below. Our appointment team will contact you to discuss scheduling. Fields marked with an asterisk (<span class="req">*</span>) are required.</p>
       <p class="preview-note"><b>Preview:</b> online appointment requests are not connected yet. Submitting this form will not send your details.</p>
       <div class="row">
@@ -903,7 +997,7 @@ footer h4{color:#fff;font-size:.78rem;letter-spacing:.16em;text-transform:upperc
       </fieldset>
       <div class="row">
         <div class="field"><label for="f-concern">What Is Your Main Concern?</label>
-          <select id="f-concern" name="concern"><option value="">Select an option</option><option>Lower back pain</option><option>Sciatica / leg pain</option><option>Neck pain</option><option>Numbness or weakness</option><option>Slip disc</option><option>Spinal stenosis</option><option>Other spine condition</option><option>Seeking a second opinion</option></select></div>
+          <select id="f-concern" name="concern"><option value="">Select an option</option><option>Lower back pain</option><option>Sciatica / leg pain</option><option>Neck pain</option><option>Numbness or weakness</option><option>Slip disc</option><option>Spinal stenosis</option><option>Spondylosis</option><option>Other spine condition</option><option>Seeking a second opinion</option></select></div>
         <div class="field"><label for="f-duration">How Long Have You Had Symptoms?</label>
           <select id="f-duration" name="duration"><option value="">Select an option</option><option>Less than 2 weeks</option><option>2–6 weeks</option><option>6 weeks–3 months</option><option>More than 3 months</option></select></div>
       </div>
@@ -916,7 +1010,7 @@ footer h4{color:#fff;font-size:.78rem;letter-spacing:.16em;text-transform:upperc
       <div class="hp" aria-hidden="true"><label for="f-company">Company</label><input type="text" id="f-company" name="company" tabindex="-1" autocomplete="off"></div>
       <label class="consent"><input type="checkbox" name="consent" required> <span>I agree to be contacted by the appointment team regarding my enquiry. I understand that submitting this form does not establish a doctor–patient relationship or provide a medical diagnosis. I have read the <a href="privacy.html">Privacy Notice</a>. <span class="req">*</span></span></label>
       <button class="btn btn-primary" type="submit">Request Appointment</button>
-      <div class="form-note" id="formNote" role="status"></div>
+      <div class="form-note" role="status"></div>
     </form>
   </div>
 </section>
@@ -1044,21 +1138,68 @@ addEventListener('resize', hsSize);
 addEventListener('load', hsSize);
 hsSize();
 
-// Appointment form: validate only — not connected to any backend yet
-const form = document.getElementById('enquiry'), note = document.getElementById('formNote');
-form.addEventListener('submit', e => {
-  e.preventDefault();
-  note.style.display = 'block';
-  if (form.company.value) return;              // honeypot filled: silently ignore bots
-  if (!form.checkValidity()) {
-    note.style.color = 'var(--alert)';
-    note.textContent = 'Please complete the required fields marked with an asterisk.';
-    form.querySelector(':invalid').focus();
-    return;
-  }
-  note.style.color = '';
-  note.textContent = 'Thank you. This is a preview — online requests are not connected yet, so your details were not sent.';
-  form.reset();
+// Hero: crossfade the back-pain photos
+const heroImgs = [...document.querySelectorAll('.hero-bg img')];
+if (!matchMedia('(prefers-reduced-motion:reduce)').matches) {
+  let cur = 0;
+  setInterval(() => {
+    heroImgs[cur].classList.remove('on');
+    cur = (cur + 1) % heroImgs.length;
+    heroImgs[cur].classList.add('on');
+  }, 7000);
+}
+
+// Consultation and fellowship forms are emailed to the doctor through FormSubmit (formsubmit.co).
+// Set DOCTOR_EMAIL to turn delivery on. The first submission sends FormSubmit's activation email to
+// that address; once confirmed, swap the address for the random alias FormSubmit provides so the
+// real email is not visible in the page source. Left empty, the forms validate but send nothing.
+const DOCTOR_EMAIL = '';
+const MAIL_ENDPOINT = DOCTOR_EMAIL ? 'https://formsubmit.co/ajax/' + DOCTOR_EMAIL : '';
+if (MAIL_ENDPOINT) document.querySelectorAll('.preview-note').forEach(n => n.remove());
+
+document.querySelectorAll('.js-mail-form').forEach(form => {
+  const note = form.querySelector('.form-note'), btn = form.querySelector('button[type=submit]');
+  const say = (msg, isError) => { note.style.display = 'block'; note.style.color = isError ? 'var(--alert)' : ''; note.textContent = msg; };
+  // A group of checkboxes with one required: valid when any box is ticked
+  const groups = [...form.querySelectorAll('fieldset')].filter(fs => fs.querySelector('legend .req') && fs.querySelector('input[type=checkbox]'));
+  const groupsOk = () => groups.every(fs => fs.querySelector('input:checked'));
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    if (form.company.value) return;              // honeypot filled: silently ignore bots
+    if (!form.checkValidity() || !groupsOk()) {
+      say('Please complete the required fields marked with an asterisk.', true);
+      (form.querySelector(':invalid') || groups.find(fs => !fs.querySelector('input:checked')).querySelector('input')).focus();
+      return;
+    }
+    if (!MAIL_ENDPOINT) {
+      say('Thank you. This is a preview — online requests are not connected yet, so your details were not sent.');
+      form.reset();
+      return;
+    }
+    const fd = new FormData(form), data = {};
+    for (const [k, v] of fd) {
+      if (k === 'company' || k === 'consent' || !v) continue;
+      data[k] = data[k] ? data[k] + ', ' + v : v;  // join multi-select checkboxes
+    }
+    data._subject = `${form.dataset.subject} — ${data.name}`;
+    data._template = 'table';
+    data._captcha = 'false';
+    if (data.email) data._replyto = data.email;
+    btn.disabled = true; btn.textContent = 'Sending…';
+    try {
+      const res = await fetch(MAIL_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(data) });
+      const out = await res.json().catch(() => ({}));
+      if (!res.ok || String(out.success) !== 'true') throw new Error(out.message || res.status);
+      say(form.dataset.success);
+      form.reset();
+    } catch (err) {
+      say('Sorry, your request could not be sent. Please try again later.', true);
+    } finally {
+      btn.disabled = false; btn.textContent = btn.dataset.label;
+    }
+  });
+  btn.dataset.label = btn.textContent;
 });
 </script>
 </body>
