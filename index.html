@@ -138,7 +138,9 @@ header.scrolled{background:rgba(11,29,46,.94);backdrop-filter:blur(12px);box-sha
 .stat span{font-size:.85rem;color:rgba(255,255,255,.68)}
 /* Hero visual: back-pain photo with the doctor's card overlapping it */
 .hero-visual{position:relative}
-.hero-visual .hv-main{border-radius:24px;aspect-ratio:4/5;object-fit:cover;object-position:center 30%;width:100%;box-shadow:0 40px 80px -30px rgba(0,0,0,.7);border:1px solid rgba(255,255,255,.15)}
+.hero-visual .hv-main{position:relative;border-radius:24px;aspect-ratio:4/5;overflow:hidden;width:100%;background:#0b1d2e;box-shadow:0 40px 80px -30px rgba(0,0,0,.7);border:1px solid rgba(255,255,255,.15)}
+.hv-main img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 35%;opacity:0;transform:scale(1.06);transition:opacity 1.6s ease}
+.hv-main img.on{opacity:1;animation:kenburns 8s ease-out forwards}
 .hv-doc{position:absolute;left:-34px;bottom:30px;display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.97);color:var(--ink);padding:10px 20px 10px 10px;border-radius:18px;max-width:330px;box-shadow:0 24px 50px -14px rgba(0,0,0,.55);border-left:4px solid var(--teal)}
 .hv-doc img{width:74px;height:74px;border-radius:14px;object-fit:cover;object-position:center 20%;flex-shrink:0}
 .hv-doc b{display:block;font-family:var(--serif);font-weight:500;font-size:1.08rem;margin-bottom:2px}
@@ -500,7 +502,7 @@ footer h4{color:#fff;font-size:.78rem;letter-spacing:.16em;text-transform:upperc
   .hs-card{transform:none!important;opacity:1!important;width:calc(33.3% - 18px);height:auto;min-height:0}
   .hs-media{flex:none;height:150px}
   .hs-num{font-size:3.2rem}
-  .hero-bg img{transition:none;animation:none}
+  .hero-bg img,.hv-main img{transition:none;animation:none}
   .moments-track{animation:none;flex-wrap:wrap;width:auto}
   .moments-track span,.lightbox{display:none}
   .featured figure,.auth{break-inside:avoid}
@@ -559,7 +561,12 @@ footer h4{color:#fff;font-size:.78rem;letter-spacing:.16em;text-transform:upperc
       </div>
     </div>
     <figure class="hero-visual">
-      <img class="hv-main" src="assets/img/dr/or-endoscope.jpg" alt="Dr. Pramod V. Lokhande performing full endoscopic spine surgery">
+      <!-- Spine images: Unsplash (free licence); they crossfade -->
+      <div class="hv-main">
+        <img src="assets/img/hero/spine-xray.jpg" alt="X-ray style image of the human cervical spine" class="on">
+        <img src="assets/img/hero/spine-anatomy.jpg" alt="Anatomical model of the back showing the spine">
+        <img src="assets/img/hero/spine-column.jpg" alt="Illustration of the human vertebral column">
+      </div>
       <figcaption class="hv-doc">
         <img src="assets/img/dr-pramod-lokhande.jpg?v=2" alt="Portrait of Dr. Pramod V. Lokhande, endoscopic and minimally invasive spine surgeon">
         <span><b>Dr. Pramod V. Lokhande</b>Full Endoscopic &amp; Minimally Invasive Spine Surgery</span>
@@ -634,7 +641,7 @@ footer h4{color:#fff;font-size:.78rem;letter-spacing:.16em;text-transform:upperc
         <p>Dr. Lokhande has also contributed to surgical education through conference lectures, live surgical demonstrations, and training workshops for orthopedic surgeons and neurosurgeons. His clinical approach begins with understanding the patient’s condition, symptoms, medical history, and treatment goals.</p>
       </div>
       <div class="about-photos">
-        <figure><img class="zoomable" src="assets/img/dr/moment-theatre.jpg" alt="Surgical team performing an endoscopic procedure with video monitors" loading="lazy"><figcaption>In the operating room</figcaption></figure>
+        <figure><img class="zoomable" src="assets/img/dr/or-endoscope.jpg" alt="Dr. Pramod V. Lokhande performing full endoscopic spine surgery" loading="lazy"><figcaption>In the operating room</figcaption></figure>
         <figure><img class="zoomable" src="assets/img/dr/ioacon-lecture.jpg" alt="Dr. Pramod V. Lokhande lecturing at IOACON 2025" loading="lazy"><figcaption>Lecturing at IOACON 2025</figcaption></figure>
       </div>
       <div class="approach-box">
@@ -896,7 +903,7 @@ footer h4{color:#fff;font-size:.78rem;letter-spacing:.16em;text-transform:upperc
     </div>
 
     <div class="moments" aria-label="Photos from conferences, courses and the operating room">
-      <div class="moments-track"><img src="assets/img/dr/moment-inauguration.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-ioacon.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-stage.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-asean-misst.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-workshop.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-or.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-meeting.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-group.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-lecture.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-colleagues.jpg" alt="" loading="lazy"><span aria-hidden="true"><img src="assets/img/dr/moment-inauguration.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-ioacon.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-stage.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-asean-misst.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-workshop.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-or.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-meeting.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-group.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-lecture.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-colleagues.jpg" alt="" loading="lazy"></span></div>
+      <div class="moments-track"><img src="assets/img/dr/moment-inauguration.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-ioacon.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-stage.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-asean-misst.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-workshop.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-or.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-meeting.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-group.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-lecture.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-colleagues.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-theatre.jpg" alt="" loading="lazy"><span aria-hidden="true"><img src="assets/img/dr/moment-inauguration.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-ioacon.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-stage.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-asean-misst.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-workshop.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-or.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-meeting.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-group.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-lecture.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-colleagues.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-theatre.jpg" alt="" loading="lazy"></span></div>
     </div>
 
     <div class="training reveal">
@@ -1219,16 +1226,19 @@ document.addEventListener('click', e => {
 });
 addEventListener('keydown', e => { if (e.key === 'Escape') lb.hidden = true; });
 
-// Hero: crossfade the back-pain photos
-const heroImgs = [...document.querySelectorAll('.hero-bg img')];
-if (!matchMedia('(prefers-reduced-motion:reduce)').matches) {
+// Hero: crossfade the back-pain backdrop and the spine images in the card
+function crossfade(selector, ms) {
+  const imgs = [...document.querySelectorAll(selector)];
+  if (imgs.length < 2 || matchMedia('(prefers-reduced-motion:reduce)').matches) return;
   let cur = 0;
   setInterval(() => {
-    heroImgs[cur].classList.remove('on');
-    cur = (cur + 1) % heroImgs.length;
-    heroImgs[cur].classList.add('on');
-  }, 7000);
+    imgs[cur].classList.remove('on');
+    cur = (cur + 1) % imgs.length;
+    imgs[cur].classList.add('on');
+  }, ms);
 }
+crossfade('.hero-bg img', 7000);
+crossfade('.hv-main img', 5000);
 
 // Consultation and fellowship forms are emailed to the doctor through FormSubmit (formsubmit.co).
 // Set DOCTOR_EMAIL to turn delivery on. The first submission sends FormSubmit's activation email to
