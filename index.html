@@ -284,8 +284,41 @@ header.scrolled{background:rgba(11,29,46,.94);backdrop-filter:blur(12px);box-sha
 /* Expertise */
 .expertise{background:#fff}
 .auth-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
-.auth{padding:34px 28px;border-radius:var(--radius);background:var(--paper);border:1px solid var(--line);position:relative;overflow:hidden}
-.auth .ic{width:50px;height:50px;border-radius:12px;background:var(--teal-tint);color:var(--teal-deep);display:grid;place-items:center;margin-bottom:20px}
+.auth{padding:0 0 28px;border-radius:var(--radius);background:var(--paper);border:1px solid var(--line);position:relative;overflow:hidden}
+.auth-img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+.auth .ic{position:relative;width:50px;height:50px;border-radius:12px;background:var(--teal-tint);color:var(--teal-deep);display:grid;place-items:center;margin:-25px 0 16px 28px;border:3px solid var(--paper)}
+.auth h3,.auth p{padding:0 28px}
+/* Recognition strip */
+.featured{margin-top:48px;display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.featured figure{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:.35s}
+.featured figure:hover{transform:translateY(-4px);box-shadow:0 24px 50px -30px rgba(11,29,46,.4)}
+.featured img{width:100%;aspect-ratio:1/1;object-fit:cover;object-position:top}
+.featured figcaption{padding:16px 18px;font-size:.86rem;color:var(--ink-soft);line-height:1.45}
+.featured figcaption b{display:block;color:var(--ink);font-family:var(--serif);font-weight:500;font-size:1.05rem;margin-bottom:4px}
+/* Moments: endless photo strip */
+.moments{margin-top:40px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.moments-track{display:flex;width:max-content;animation:marquee 70s linear infinite}
+.moments-track span{display:flex}
+.moments-track img{height:200px;width:auto;margin-right:14px;border-radius:12px}
+.moments:hover .moments-track{animation-play-state:paused}
+@keyframes marquee{to{transform:translateX(-50%)}}
+/* Photos in About, Endoscopic and Fellowship */
+.about-photos{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px}
+.about-photos img,.endo-photo img{width:100%;object-fit:cover;border-radius:14px;box-shadow:0 20px 40px -26px rgba(11,29,46,.5)}
+.about-photos img{aspect-ratio:4/5}
+.endo-photo{margin-top:28px}
+.endo-photo img{aspect-ratio:16/10;object-position:center 35%}
+.about-photos figcaption,.endo-photo figcaption{font-size:.82rem;color:var(--muted);margin-top:8px}
+.fellow-photos{display:grid;grid-template-columns:1.3fr 1fr;grid-template-rows:150px 150px 170px;gap:10px;margin-bottom:28px}
+.fellow-photos img{width:100%;height:100%;object-fit:cover;border-radius:12px}
+.fellow-photos .big{grid-row:span 2}
+.fellow-photos .wide{grid-column:span 2}
+/* Click-to-enlarge */
+.zoomable{cursor:zoom-in}
+.lightbox{position:fixed;inset:0;z-index:100;background:rgba(5,12,20,.92);display:grid;place-items:center;padding:28px;cursor:zoom-out}
+.lightbox[hidden]{display:none}
+.lightbox img{max-width:100%;max-height:88vh;border-radius:10px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.lightbox button{position:absolute;top:18px;right:22px;width:46px;height:46px;border-radius:50%;border:0;background:rgba(255,255,255,.14);color:#fff;font-size:1.6rem;cursor:pointer}
 .auth .ic svg{width:24px;height:24px}
 .auth h3{margin-bottom:10px;font-size:1.2rem}
 .auth p{font-size:.93rem;color:var(--ink-soft)}
@@ -296,7 +329,7 @@ header.scrolled{background:rgba(11,29,46,.94);backdrop-filter:blur(12px);box-sha
 .training p{color:rgba(255,255,255,.75);max-width:56ch}
 .training .btn{background:#fff;color:var(--ink)}
 .fellow{margin-top:24px;display:grid;grid-template-columns:5fr 7fr;gap:48px;padding:48px;border-radius:24px;background:var(--sand);align-items:start;scroll-margin-top:90px}
-.fellow-info{position:sticky;top:110px}
+.fellow-info{position:relative}
 .fellow-info h3{font-size:clamp(1.7rem,3vw,2.3rem);margin:12px 0 14px}
 .fellow-info p{color:var(--ink-soft)}
 .fellow-list{list-style:none;margin:22px 0;display:grid;gap:10px}
@@ -406,7 +439,7 @@ footer h4{color:#fff;font-size:.78rem;letter-spacing:.16em;text-transform:upperc
   .faq-side,.appt-grid > div:first-child{position:static}
   .portrait{position:static;max-width:440px}
   .portrait .badge{right:16px}
-  .sym-grid,.auth-grid,.contact-cards,.steps{grid-template-columns:repeat(2,1fr)}
+  .sym-grid,.auth-grid,.contact-cards,.steps,.featured{grid-template-columns:repeat(2,1fr)}
   .cond-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:auto}
   .cond,.cond.wide,.cond.xwide{grid-column:span 2;min-height:340px}
   .cond.feature{grid-row:auto;min-height:480px}
@@ -434,6 +467,10 @@ footer h4{color:#fff;font-size:.78rem;letter-spacing:.16em;text-transform:upperc
   .suit .no{grid-row:auto}
   .quote,.better,.training,.cond-cta{padding:32px 26px}
   .fellow{padding:26px 16px}
+  .featured{gap:12px}
+  .featured figcaption{padding:12px 14px;font-size:.8rem}
+  .moments-track img{height:150px}
+  .fellow-photos{grid-template-rows:120px 120px 140px}
   .compare-wrap{overflow-x:auto}
   .compare-wrap table{min-width:640px}
   .compare-wrap th,.compare-wrap td{padding:14px;font-size:.88rem}
@@ -460,9 +497,12 @@ footer h4{color:#fff;font-size:.78rem;letter-spacing:.16em;text-transform:upperc
   .hs-media{flex:none;height:150px}
   .hs-num{font-size:3.2rem}
   .hero-bg img{transition:none;animation:none}
+  .moments-track{animation:none;flex-wrap:wrap;width:auto}
+  .moments-track span,.lightbox{display:none}
+  .featured figure,.auth{break-inside:avoid}
   .hs-bar,.hs-hint{display:none}
 }
-@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.reveal{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.reveal{opacity:1;transform:none}.moments{overflow-x:auto}.moments-track span{display:none}}
 </style>
 </head>
 <body>
@@ -586,6 +626,10 @@ footer h4{color:#fff;font-size:.78rem;letter-spacing:.16em;text-transform:upperc
         <p>He has performed more than 5,000 spine surgeries and pursued advanced fellowship training in five countries: South Korea, Germany, France, Switzerland, and Japan.</p>
         <p>Dr. Lokhande has also contributed to surgical education through conference lectures, live surgical demonstrations, and training workshops for orthopedic surgeons and neurosurgeons. His clinical approach begins with understanding the patient’s condition, symptoms, medical history, and treatment goals.</p>
       </div>
+      <div class="about-photos">
+        <figure><img class="zoomable" src="assets/img/dr/or-endoscope.jpg" alt="Dr. Pramod V. Lokhande performing full endoscopic spine surgery" loading="lazy"><figcaption>In the operating room</figcaption></figure>
+        <figure><img class="zoomable" src="assets/img/dr/ioacon-lecture.jpg" alt="Dr. Pramod V. Lokhande lecturing at IOACON 2025" loading="lazy"><figcaption>Lecturing at IOACON 2025</figcaption></figure>
+      </div>
       <div class="approach-box">
         <h3>A Thoughtful Approach to Spine Care</h3>
         <div class="pillars">
@@ -637,6 +681,7 @@ footer h4{color:#fff;font-size:.78rem;letter-spacing:.16em;text-transform:upperc
       <p class="sub">Understanding Full Endoscopic Spine Surgery</p>
       <p>Full endoscopic spine surgery is a minimally invasive technique used to treat selected spinal conditions. The surgeon uses a small camera called an endoscope, along with specialized surgical instruments, to access and treat the affected area.</p>
       <p>The camera provides a magnified view of the surgical site, allowing the surgeon to work through a relatively small incision. For appropriately selected patients, this approach may reduce disruption to surrounding tissues compared with some traditional open procedures.</p>
+      <figure class="endo-photo"><img class="zoomable" src="assets/img/dr/endoscopic-surgery.jpg" alt="Dr. Pramod V. Lokhande performing an endoscopic spine procedure" loading="lazy"><figcaption>Dr. Lokhande performing full endoscopic spine surgery</figcaption></figure>
     </div>
     <figure class="diagram reveal">
       <svg viewBox="0 0 520 400" role="img" aria-labelledby="dgTitle">
@@ -830,11 +875,23 @@ footer h4{color:#fff;font-size:.78rem;letter-spacing:.16em;text-transform:upperc
       <p class="lead">Dr. Pramod Lokhande’s work extends beyond clinical practice. He participates in surgical education, sharing his knowledge of endoscopic spine techniques with orthopedic surgeons and neurosurgeons.</p>
     </div>
     <div class="auth-grid">
-      <div class="auth reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg></div><h3>International Fellowship Training</h3><p>Advanced spine training in South Korea, Germany, France, Switzerland, and Japan.</p></div>
-      <div class="auth reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4M8 22h8"/></svg></div><h3>National and International Conferences</h3><p>Invited lectures and educational presentations on advanced spine surgery techniques.</p></div>
-      <div class="auth reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="5" width="15" height="14" rx="2"/><path d="M17 10l5-3v10l-5-3"/></svg></div><h3>Live Surgical Demonstrations</h3><p>Teaching surgical techniques through demonstrations and educational programs.</p></div>
-      <div class="auth reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 11V7a5 5 0 0 1 10 0v4"/><path d="M5 11h14v4a7 7 0 0 1-14 0z"/></svg></div><h3>Cadaveric Training Workshops</h3><p>Hands-on training in endoscopic approaches, including interlaminar and transforaminal techniques.</p></div>
+      <div class="auth reveal"><img class="auth-img" src="assets/img/dr/international-course.jpg" alt="Dr. Lokhande with faculty and delegates at an international instructional course" loading="lazy"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg></div><h3>International Fellowship Training</h3><p>Advanced spine training in South Korea, Germany, France, Switzerland, and Japan.</p></div>
+      <div class="auth reveal"><img class="auth-img" src="assets/img/dr/conference-panel.jpg" alt="Dr. Lokhande with fellow speakers on a conference stage" loading="lazy"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4M8 22h8"/></svg></div><h3>National and International Conferences</h3><p>Invited lectures and educational presentations on advanced spine surgery techniques.</p></div>
+      <div class="auth reveal"><img class="auth-img" src="assets/img/dr/live-demo.jpg" alt="Dr. Lokhande demonstrating an endoscopic technique at a training station" loading="lazy"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="5" width="15" height="14" rx="2"/><path d="M17 10l5-3v10l-5-3"/></svg></div><h3>Live Surgical Demonstrations</h3><p>Teaching surgical techniques through demonstrations and educational programs.</p></div>
+      <div class="auth reveal"><img class="auth-img" src="assets/img/dr/anatomical-course.jpg" alt="Dr. Lokhande speaking at the AO Spine Asia Pacific Regional Anatomical Specimen Course" loading="lazy"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 11V7a5 5 0 0 1 10 0v4"/><path d="M5 11h14v4a7 7 0 0 1-14 0z"/></svg></div><h3>Cadaveric Training Workshops</h3><p>Hands-on training in endoscopic approaches, including interlaminar and transforaminal techniques.</p></div>
     </div>
+
+    <div class="featured reveal">
+      <figure><img class="zoomable" src="assets/img/dr/eurospine-2026.jpg" alt="EUROSPINE Annual Meeting 2026 live demonstration programme listing Dr. Pramod Lokhande" loading="lazy"><figcaption><b>EUROSPINE Annual Meeting 2026</b>Live Demonstration — Meet the Expert</figcaption></figure>
+      <figure><img class="zoomable" src="assets/img/dr/riwospine-symposium.jpg" alt="RIWOspine Lunch Symposium on 30 years of endoscopic spine surgery" loading="lazy"><figcaption><b>RIWOspine Lunch Symposium</b>30 Years Evolution of Endoscopic Spine Surgery</figcaption></figure>
+      <figure><img class="zoomable" src="assets/img/dr/paper-cervical.jpg" alt="Journal article: Complications in Full-Endoscopic Posterior Cervical Surgery, co-authored by Pramod V. Lokhande" loading="lazy"><figcaption><b>Published research</b>Complications in Full-Endoscopic Posterior Cervical Surgery: A Review</figcaption></figure>
+      <figure><img class="zoomable" src="assets/img/dr/news-paralysis.jpg" alt="Newspaper article: Docs save 12-yr-old boy from paralysis with spine surgery" loading="lazy"><figcaption><b>In the news</b>“Docs save 12-yr-old boy from paralysis with spine surgery”</figcaption></figure>
+    </div>
+
+    <div class="moments" aria-label="Photos from conferences, courses and the operating room">
+      <div class="moments-track"><img src="assets/img/dr/moment-inauguration.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-ioacon.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-stage.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-asean-misst.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-workshop.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-or.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-meeting.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-group.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-lecture.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-colleagues.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-theatre.jpg" alt="" loading="lazy"><span aria-hidden="true"><img src="assets/img/dr/moment-inauguration.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-ioacon.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-stage.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-asean-misst.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-workshop.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-or.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-meeting.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-group.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-lecture.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-colleagues.jpg" alt="" loading="lazy"><img src="assets/img/dr/moment-theatre.jpg" alt="" loading="lazy"></span></div>
+    </div>
+
     <div class="training reveal">
       <div>
         <small>For Orthopedic Surgeons and Neurosurgeons</small>
@@ -846,6 +903,12 @@ footer h4{color:#fff;font-size:.78rem;letter-spacing:.16em;text-transform:upperc
 
     <div class="fellow" id="fellowship">
       <div class="fellow-info reveal">
+        <div class="fellow-photos">
+          <img class="zoomable big" src="assets/img/dr/teaching-simulator.jpg" alt="Dr. Lokhande guiding surgeons on an endoscopic spine simulator" loading="lazy">
+          <img class="zoomable" src="assets/img/dr/workstation-demo.jpg" alt="Hands-on endoscopic working station with live video" loading="lazy">
+          <img class="zoomable" src="assets/img/dr/spine-model-training.jpg" alt="Dr. Lokhande teaching on a spine model in scrubs" loading="lazy">
+          <img class="zoomable wide" src="assets/img/dr/ao-course-group.jpg" alt="Faculty and trainees at an AO Spine Asia Pacific course" loading="lazy">
+        </div>
         <span class="eyebrow">Surgeon Training</span>
         <h3>Book a Fellowship</h3>
         <p>Tell us about your background and the training you are interested in. Your enquiry will be sent to Dr. Lokhande, and the team will contact you about availability and next steps.</p>
@@ -1076,6 +1139,8 @@ footer h4{color:#fff;font-size:.78rem;letter-spacing:.16em;text-transform:upperc
   </div>
 </footer>
 
+<div class="lightbox" id="lightbox" hidden><img alt=""><button type="button" aria-label="Close">×</button></div>
+
 <a class="wa" href="#appointment" aria-label="Request an appointment">
   <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.3.5-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.6 2.1 1.1 1 2.1 1.3 2.4 1.4.3.2.5.1.6-.1l.9-1.1c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.5.3.1.2.1.7-.1 1.2z"/></svg>
 </a>
@@ -1137,6 +1202,15 @@ track.addEventListener('scroll', () => requestAnimationFrame(hsUpdate), {passive
 addEventListener('resize', hsSize);
 addEventListener('load', hsSize);
 hsSize();
+
+// Click any .zoomable photo to view it full size
+const lb = document.getElementById('lightbox'), lbImg = lb.querySelector('img');
+document.addEventListener('click', e => {
+  const z = e.target.closest('.zoomable');
+  if (z) { lbImg.src = z.currentSrc || z.src; lbImg.alt = z.alt; lb.hidden = false; }
+  else if (lb.contains(e.target)) lb.hidden = true;
+});
+addEventListener('keydown', e => { if (e.key === 'Escape') lb.hidden = true; });
 
 // Hero: crossfade the back-pain photos
 const heroImgs = [...document.querySelectorAll('.hero-bg img')];
