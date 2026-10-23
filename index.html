@@ -136,9 +136,13 @@ header.scrolled{background:rgba(11,29,46,.94);backdrop-filter:blur(12px);box-sha
 .stat b{display:block;font-family:var(--serif);font-weight:500;font-size:2.3rem;line-height:1.05}
 .stat b small{font-size:1.1rem;color:rgba(255,255,255,.8)}
 .stat span{font-size:.85rem;color:rgba(255,255,255,.68)}
-.hero-portrait{position:relative}
-.hero-portrait img{border-radius:24px;aspect-ratio:4/5;object-fit:cover;width:100%;box-shadow:0 40px 80px -30px rgba(0,0,0,.7);border:1px solid rgba(255,255,255,.15)}
-.hero-portrait figcaption{position:absolute;left:-26px;bottom:34px;background:rgba(255,255,255,.96);color:var(--ink);padding:14px 20px;border-radius:14px;font-weight:600;font-size:.9rem;max-width:250px;line-height:1.35;box-shadow:0 20px 40px -12px rgba(0,0,0,.45);border-left:4px solid var(--teal)}
+/* Hero visual: back-pain photo with the doctor's card overlapping it */
+.hero-visual{position:relative}
+.hero-visual .hv-main{border-radius:24px;aspect-ratio:4/5;object-fit:cover;object-position:center 40%;width:100%;box-shadow:0 40px 80px -30px rgba(0,0,0,.7);border:1px solid rgba(255,255,255,.15)}
+.hv-doc{position:absolute;left:-34px;bottom:30px;display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.97);color:var(--ink);padding:10px 20px 10px 10px;border-radius:18px;max-width:330px;box-shadow:0 24px 50px -14px rgba(0,0,0,.55);border-left:4px solid var(--teal)}
+.hv-doc img{width:74px;height:74px;border-radius:14px;object-fit:cover;object-position:center 20%;flex-shrink:0}
+.hv-doc b{display:block;font-family:var(--serif);font-weight:500;font-size:1.08rem;margin-bottom:2px}
+.hv-doc span{font-size:.82rem;font-weight:600;line-height:1.35;color:var(--ink-soft)}
 
 /* Symptoms */
 .sym-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
@@ -434,8 +438,8 @@ footer h4{color:#fff;font-size:.78rem;letter-spacing:.16em;text-transform:upperc
 @media (max-width:1024px){
   .hero-grid,.about-grid,.approach-grid,.endo-grid,.faq-grid,.appt-grid,.fellow{grid-template-columns:1fr;gap:40px}
   .fellow-info{position:static}
-  .hero-portrait{max-width:380px}
-  .hero-portrait figcaption{left:16px}
+  .hero-visual{max-width:420px}
+  .hv-doc{left:14px;right:14px;bottom:16px;max-width:none}
   .faq-side,.appt-grid > div:first-child{position:static}
   .portrait{position:static;max-width:440px}
   .portrait .badge{right:16px}
@@ -554,9 +558,12 @@ footer h4{color:#fff;font-size:.78rem;letter-spacing:.16em;text-transform:upperc
         <div class="stat"><b>5 <small>Countries</small></b><span>Advanced fellowship training</span></div>
       </div>
     </div>
-    <figure class="hero-portrait">
-      <img src="assets/img/dr-pramod-lokhande.jpg?v=2" alt="Portrait of Dr. Pramod V. Lokhande, endoscopic and minimally invasive spine surgeon">
-      <figcaption>Full Endoscopic &amp; Minimally Invasive Spine Surgery</figcaption>
+    <figure class="hero-visual">
+      <img class="hv-main" src="assets/img/hero/back-pain-hero.jpg" alt="Man holding his lower back, with the painful area glowing red">
+      <figcaption class="hv-doc">
+        <img src="assets/img/dr-pramod-lokhande.jpg?v=2" alt="Portrait of Dr. Pramod V. Lokhande, endoscopic and minimally invasive spine surgeon">
+        <span><b>Dr. Pramod V. Lokhande</b>Full Endoscopic &amp; Minimally Invasive Spine Surgery</span>
+      </figcaption>
     </figure>
   </div>
 </section>
