@@ -336,8 +336,21 @@ header.scrolled{background:rgba(11,29,46,.94);backdrop-filter:blur(12px);box-sha
 .training h3{font-size:clamp(1.5rem,2.6vw,2rem);margin:10px 0 10px}
 .training p{color:rgba(255,255,255,.75);max-width:56ch}
 .training .btn{background:#fff;color:var(--ink)}
-.fellow{margin-top:24px;display:grid;grid-template-columns:5fr 7fr;gap:48px;padding:48px;border-radius:24px;background:var(--sand);align-items:start;scroll-margin-top:90px}
-.fellow-info{position:relative}
+.fellow{margin-top:24px;padding:48px;border-radius:24px;background:var(--sand);scroll-margin-top:90px}
+.fellow-info{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.fellow-info .fellow-photos{margin-bottom:0}
+.fellow-apply{margin-top:24px}
+.fellow-apply svg{transition:transform .3s}
+.fellow.open .fellow-apply svg{transform:rotate(180deg)}
+/* Collapsible form panel: animates height via grid rows */
+.fellow-panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s ease,margin-top .55s ease}
+.fellow.open .fellow-panel{grid-template-rows:1fr;margin-top:40px}
+.fellow-panel-inner{overflow:hidden;min-height:0}
+.fellow-panel form{position:relative;max-width:860px;margin:0 auto;opacity:0;transform:translateY(-12px);transition:opacity .4s ease .1s,transform .4s ease .1s}
+.fellow.open .fellow-panel form{opacity:1;transform:none}
+.form-close{position:absolute;top:18px;right:18px;width:42px;height:42px;border-radius:50%;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);font-size:1.5rem;line-height:1;cursor:pointer;transition:.2s}
+.form-close:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.fellow-panel form h3{padding-right:52px}
 .fellow-info h3{font-size:clamp(1.7rem,3vw,2.3rem);margin:12px 0 14px}
 .fellow-info p{color:var(--ink-soft)}
 .fellow-list{list-style:none;margin:22px 0;display:grid;gap:10px}
@@ -440,8 +453,7 @@ footer h4{color:#fff;font-size:.78rem;letter-spacing:.16em;text-transform:upperc
   .nav ul.open{display:flex;flex-direction:column;position:absolute;top:78px;left:0;right:0;background:var(--ink);padding:24px;gap:18px}
 }
 @media (max-width:1024px){
-  .hero-grid,.about-grid,.approach-grid,.endo-grid,.faq-grid,.appt-grid,.fellow{grid-template-columns:1fr;gap:40px}
-  .fellow-info{position:static}
+  .hero-grid,.about-grid,.approach-grid,.endo-grid,.faq-grid,.appt-grid,.fellow-info{grid-template-columns:1fr;gap:40px}
   .hero-visual{max-width:420px}
   .hv-doc{margin:-30px 14px 0;max-width:none}
   .faq-side,.appt-grid > div:first-child{position:static}
@@ -505,7 +517,9 @@ footer h4{color:#fff;font-size:.78rem;letter-spacing:.16em;text-transform:upperc
   .hs-media{flex:none;height:150px}
   .hs-num{font-size:3.2rem}
   .hero-bg img{transition:none;animation:none}
-  .hv-pulse{display:none}
+  .hv-pulse,.form-close,.fellow-apply{display:none}
+  .fellow-panel{grid-template-rows:1fr;margin-top:32px}
+  .fellow-panel form{opacity:1;transform:none}
   .moments-track{animation:none;flex-wrap:wrap;width:auto}
   .moments-track span,.lightbox{display:none}
   .featured figure,.auth{break-inside:avoid}
@@ -925,6 +939,7 @@ footer h4{color:#fff;font-size:.78rem;letter-spacing:.16em;text-transform:upperc
           <img class="zoomable" src="assets/img/dr/spine-model-training.jpg" alt="Dr. Lokhande teaching on a spine model in scrubs" loading="lazy">
           <img class="zoomable wide" src="assets/img/dr/ao-course-group.jpg" alt="Faculty and trainees at an AO Spine Asia Pacific course" loading="lazy">
         </div>
+        <div class="fellow-text">
         <span class="eyebrow">Surgeon Training</span>
         <h3>Book a Fellowship</h3>
         <p>Tell us about your background and the training you are interested in. Your enquiry will be sent to Dr. Lokhande, and the team will contact you about availability and next steps.</p>
@@ -935,9 +950,15 @@ footer h4{color:#fff;font-size:.78rem;letter-spacing:.16em;text-transform:upperc
           <li>Observership</li>
         </ul>
         <p class="fellow-small">Submitting an enquiry does not confirm a place. Programme dates, eligibility and any fees will be confirmed by the team.</p>
+        <button type="button" class="btn btn-primary fellow-apply" id="fellowApply" aria-expanded="false" aria-controls="fellowPanel">Apply for Fellowship
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+        </div>
       </div>
 
-      <form class="reveal js-mail-form" id="fellowForm" novalidate data-subject="Fellowship enquiry" data-success="Thank you. Your fellowship enquiry has been sent to Dr. Lokhande. The team will contact you with details.">
+      <div class="fellow-panel" id="fellowPanel" inert>
+      <div class="fellow-panel-inner">
+      <form class="js-mail-form" id="fellowForm" novalidate data-subject="Fellowship enquiry" data-success="Thank you. Your fellowship enquiry has been sent to Dr. Lokhande. The team will contact you with details.">
+        <button type="button" class="form-close" id="fellowClose" aria-label="Close the fellowship form">×</button>
         <h3>Fellowship Enquiry</h3>
         <p class="form-intro">Fields marked with an asterisk (<span class="req">*</span>) are required.</p>
         <p class="preview-note"><b>Preview:</b> online enquiries are not connected yet. Submitting this form will not send your details.</p>
@@ -977,6 +998,8 @@ footer h4{color:#fff;font-size:.78rem;letter-spacing:.16em;text-transform:upperc
         <button class="btn btn-primary" type="submit">Send Fellowship Enquiry</button>
         <div class="form-note" role="status"></div>
       </form>
+      </div>
+      </div>
     </div>
   </div>
 </section>
@@ -1218,6 +1241,20 @@ track.addEventListener('scroll', () => requestAnimationFrame(hsUpdate), {passive
 addEventListener('resize', hsSize);
 addEventListener('load', hsSize);
 hsSize();
+
+// Fellowship form: collapsed until "Apply" (or the training band's button) opens it
+const fellow = document.getElementById('fellowship'), fPanel = document.getElementById('fellowPanel');
+const fApply = document.getElementById('fellowApply'), fClose = document.getElementById('fellowClose');
+function setFellow(open) {
+  fellow.classList.toggle('open', open);
+  fPanel.inert = !open;
+  fApply.setAttribute('aria-expanded', open);
+  if (open) setTimeout(() => { fPanel.scrollIntoView({ behavior: 'smooth', block: 'start' }); document.getElementById('w-name').focus({ preventScroll: true }); }, 350);
+  else fApply.focus({ preventScroll: true });
+}
+fApply.addEventListener('click', () => setFellow(!fellow.classList.contains('open')));
+fClose.addEventListener('click', () => setFellow(false));
+document.querySelectorAll('a[href="#fellowship"]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); setFellow(true); }));
 
 // Click any .zoomable photo to view it full size
 const lb = document.getElementById('lightbox'), lbImg = lb.querySelector('img');
