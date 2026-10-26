@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 500" role="img" aria-labelledby="t d">
+  <title id="t">How full endoscopic spine surgery works</title>
+  <desc id="d">Side cross-section of the lower spine. An endoscope passes through a small skin incision and between the bones to reach a herniated disc pressing on a nerve. An inset shows the magnified endoscopic camera view.</desc>
+  <defs>
+    <linearGradient id="bone" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fbf5e6"/><stop offset=".55" stop-color="#efe2c3"/><stop offset="1" stop-color="#dcc79c"/></linearGradient>
+    <linearGradient id="boneDark" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f3e8cd"/><stop offset="1" stop-color="#d8c193"/></linearGradient>
+    <pattern id="trab" width="9" height="9" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.4" fill="#cdb684" opacity=".55"/><circle cx="6.5" cy="6" r="1" fill="#cdb684" opacity=".4"/></pattern>
+    <linearGradient id="disc" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a9cdd5"/><stop offset=".5" stop-color="#cfe6ea"/><stop offset="1" stop-color="#a9cdd5"/></linearGradient>
+    <linearGradient id="muscle" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#b9584c"/><stop offset=".6" stop-color="#c9695b"/><stop offset="1" stop-color="#d98473"/></linearGradient>
+    <pattern id="fibres" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(-24)"><path d="M0 7h14" stroke="#e79a88" stroke-width="1.2" opacity=".55"/></pattern>
+    <linearGradient id="skin" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f2c9a7"/><stop offset="1" stop-color="#e2a985"/></linearGradient>
+    <linearGradient id="soft" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f6ece7"/><stop offset="1" stop-color="#efdcd3"/></linearGradient>
+    <linearGradient id="dura" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f7e7b4"/><stop offset=".5" stop-color="#fdf3d2"/><stop offset="1" stop-color="#f1dc9c"/></linearGradient>
+    <linearGradient id="steel" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e7edf2"/><stop offset=".35" stop-color="#9aa9b6"/><stop offset=".7" stop-color="#5e6e7c"/><stop offset="1" stop-color="#3c4955"/></linearGradient>
+    <radialGradient id="beam" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ffffff" stop-opacity=".95"/><stop offset=".35" stop-color="#bff3ee" stop-opacity=".6"/><stop offset="1" stop-color="#7fd6d1" stop-opacity="0"/></radialGradient>
+    <radialGradient id="view" cx=".45" cy=".45" r=".6"><stop offset="0" stop-color="#f7c9bb"/><stop offset=".6" stop-color="#d77f6d"/><stop offset="1" stop-color="#5a1f1a"/></radialGradient>
+    <radialGradient id="hot" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ff5a3c" stop-opacity=".55"/><stop offset="1" stop-color="#ff5a3c" stop-opacity="0"/></radialGradient>
+    <clipPath id="insetClip"><circle cx="92" cy="404" r="68"/></clipPath>
+    <clipPath id="frame"><rect x="20" y="16" width="530" height="470" rx="18"/></clipPath>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#0b1d2e" flood-opacity=".28"/></filter>
+  </defs>
+
+  <g clip-path="url(#frame)">
+    <!-- anterior soft tissue, muscle, fat and skin (posterior is to the right) -->
+    <rect x="20" y="16" width="530" height="470" fill="url(#soft)"/>
+    <rect x="300" y="16" width="214" height="470" fill="url(#muscle)"/>
+    <rect x="300" y="16" width="214" height="470" fill="url(#fibres)"/>
+    <path d="M514 16 Q520 250 516 486 L534 486 Q538 250 532 16 Z" fill="#f6ddb0"/>
+    <path d="M532 16 Q540 250 534 486 L550 486 L550 16 Z" fill="url(#skin)"/>
+
+    <!-- spinal canal: dura with nerves -->
+    <rect x="264" y="16" width="36" height="470" fill="url(#dura)"/>
+    <path d="M274 16 V486 M282 16 V486 M290 16 V486" stroke="#e2bf62" stroke-width="1.4" opacity=".7"/>
+
+    <!-- vertebral bodies -->
+    <g stroke="#b59c6c" stroke-width="2">
+      <rect x="120" y="36" width="144" height="104" rx="16" fill="url(#bone)"/>
+      <rect x="120" y="172" width="144" height="100" rx="16" fill="url(#bone)"/>
+      <rect x="120" y="304" width="144" height="100" rx="16" fill="url(#bone)"/>
+      <rect x="120" y="436" width="144" height="80" rx="16" fill="url(#bone)"/>
+    </g>
+    <g fill="url(#trab)">
+      <rect x="132" y="48" width="120" height="80" rx="10"/><rect x="132" y="184" width="120" height="76" rx="10"/>
+      <rect x="132" y="316" width="120" height="76" rx="10"/><rect x="132" y="448" width="120" height="60" rx="10"/>
+    </g>
+
+    <!-- discs (nucleus lighter) -->
+    <g stroke="#7ea6b0" stroke-width="1.6">
+      <rect x="124" y="142" width="138" height="28" rx="12" fill="url(#disc)"/>
+      <rect x="124" y="274" width="138" height="28" rx="12" fill="url(#disc)"/>
+      <rect x="124" y="406" width="138" height="28" rx="12" fill="url(#disc)"/>
+    </g>
+    <g fill="#e9f5f7"><ellipse cx="186" cy="156" rx="34" ry="8"/><ellipse cx="186" cy="288" rx="34" ry="8"/><ellipse cx="186" cy="420" rx="34" ry="8"/></g>
+
+    <!-- herniated disc pressing on the nerve -->
+    <ellipse cx="282" cy="290" rx="44" ry="40" fill="url(#hot)"/>
+    <path d="M258 277 C284 274 300 282 297 290 C300 298 284 305 258 301 Z" fill="#e0654f" stroke="#a83c31" stroke-width="1.6"/>
+    <path d="M286 236 C300 262 304 292 296 322 C292 338 288 352 292 372" fill="none" stroke="#f0b429" stroke-width="5" stroke-linecap="round"/>
+    <path d="M286 236 C300 262 304 292 296 322 C292 338 288 352 292 372" fill="none" stroke="#fff3c4" stroke-width="1.6" stroke-linecap="round" opacity=".8"/>
+
+    <!-- posterior elements: pedicle, lamina, spinous process, facet joint -->
+    <g fill="url(#boneDark)" stroke="#b59c6c" stroke-width="2" stroke-linejoin="round">
+      <path d="M300 54 L334 42 L376 54 L428 78 L432 100 L386 106 L338 112 L300 106 Z"/>
+      <path d="M300 190 L334 178 L376 190 L428 214 L432 236 L386 242 L338 248 L300 242 Z"/>
+      <path d="M300 322 L334 310 L376 322 L428 346 L432 368 L386 374 L338 380 L300 374 Z"/>
+      <path d="M300 454 L334 442 L376 454 L428 478 L432 500 L300 500 Z"/>
+    </g>
+
+    <!-- endoscope: enters through the skin incision and passes between the laminae to the herniation -->
+    <ellipse cx="300" cy="291" rx="44" ry="26" fill="url(#beam)" transform="rotate(-14 300 291)"/>
+    <g transform="rotate(-14.4 300 291)">
+      <rect x="300" y="283" width="320" height="16" rx="8" fill="url(#steel)" stroke="#2f3a44" stroke-width="1.2"/>
+      <rect x="300" y="285" width="320" height="3" rx="1.5" fill="#ffffff" opacity=".55"/>
+      <circle cx="302" cy="291" r="4" fill="#d9fbff"/>
+    </g>
+    <!-- small incision marker -->
+    <circle cx="537" cy="230" r="6" fill="none" stroke="#c2412d" stroke-width="2.4"/>
+  </g>
+  <rect x="20" y="16" width="530" height="470" rx="18" fill="none" stroke="#e4dfd4" stroke-width="1.5"/>
+
+  <!-- inline labels -->
+  <g font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700" fill="#0b1d2e">
+    <g><rect x="134" y="72" width="118" height="32" rx="16" fill="#fff" opacity=".94"/><text x="193" y="94" text-anchor="middle">Vertebra</text></g>
+    <g><rect x="150" y="141" width="72" height="30" rx="15" fill="#fff" opacity=".94"/><text x="186" y="162" text-anchor="middle">Disc</text></g>
+    <g><rect x="124" y="275" width="132" height="30" rx="15" fill="#fff"/><text x="190" y="296" text-anchor="middle" fill="#a83c31" font-size="16.5">Herniated disc</text></g>
+    <path d="M287 224 L256 214" stroke="#0b1d2e" stroke-width="1.6"/>
+    <g><rect x="140" y="199" width="116" height="30" rx="15" fill="#fff"/><text x="198" y="220" text-anchor="middle" font-size="16.5">Nerve root</text></g>
+  </g>
+  <g font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700" fill="#0b1d2e">
+    <path d="M546 46 H562" stroke="#0b1d2e" stroke-width="1.6"/><text x="567" y="52">Skin</text>
+    <path d="M470 120 H562" stroke="#0b1d2e" stroke-width="1.6"/><text x="567" y="126">Muscle</text>
+    <path d="M478 246 L562 186" stroke="#0b1d2e" stroke-width="1.6"/><text x="567" y="192">Endo-</text><text x="567" y="212">scope</text>
+    <path d="M543 233 L562 254" stroke="#c2412d" stroke-width="1.6"/><text x="567" y="262" fill="#c2412d">Small</text><text x="567" y="282" fill="#c2412d">incision</text>
+    <path d="M410 360 H562" stroke="#0b1d2e" stroke-width="1.6"/><text x="567" y="366">Spinous</text><text x="567" y="386">process</text>
+  </g>
+
+  <!-- magnified endoscopic view -->
+  <path d="M296 296 C240 330 190 360 150 380" fill="none" stroke="#0a6b68" stroke-width="1.6" stroke-dasharray="5 5"/>
+  <g filter="url(#shadow)">
+    <circle cx="92" cy="404" r="72" fill="#fff"/>
+  </g>
+  <g clip-path="url(#insetClip)">
+    <rect x="20" y="332" width="150" height="150" fill="url(#view)"/>
+    <path d="M30 470 C70 420 96 380 150 336" stroke="#f0b429" stroke-width="22" fill="none" stroke-linecap="round"/>
+    <path d="M30 470 C70 420 96 380 150 336" stroke="#ffe08a" stroke-width="6" fill="none" stroke-linecap="round" opacity=".7"/>
+    <path d="M58 380 C72 362 100 366 104 384 C108 402 84 412 68 404 C56 398 52 388 58 380 Z" fill="#f4f7f2" stroke="#c9d3cc" stroke-width="1.5"/>
+    <path d="M170 446 L108 404" stroke="#7d8a95" stroke-width="9" stroke-linecap="round"/>
+    <path d="M110 405 L98 396 M110 405 L100 410" stroke="#5e6b75" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="92" cy="404" r="68" fill="none" stroke="#000" stroke-opacity=".35" stroke-width="10"/>
+  </g>
+  <circle cx="92" cy="404" r="68" fill="none" stroke="#0d8a86" stroke-width="3"/>
+  <g font-family="Inter,Arial,sans-serif" text-anchor="middle">
+    <rect x="16" y="466" width="152" height="30" rx="15" fill="#0b1d2e"/>
+    <text x="92" y="487" font-size="15.5" font-weight="700" fill="#fff">Endoscopic view</text>
+  </g>
+</svg>

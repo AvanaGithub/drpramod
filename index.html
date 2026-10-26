@@ -164,7 +164,11 @@ header.scrolled{background:rgba(11,29,46,.94);backdrop-filter:blur(12px);box-sha
 /* About */
 .about-grid{display:grid;grid-template-columns:5fr 7fr;gap:72px;align-items:start}
 .portrait{position:sticky;top:110px}
-.portrait .photo{position:relative}
+.portrait .photo{position:relative;max-width:360px}
+/* Supplied photo is 300x315: keep its own shape and don't stretch it far past its size */
+.portrait img.portrait-photo{aspect-ratio:auto;height:auto}
+.portrait .photo .badge{bottom:-22px;right:-18px}
+.portrait .photo + .flags-label{margin-top:44px}
 .portrait img{border-radius:var(--radius);aspect-ratio:4/5;object-fit:cover;width:100%;box-shadow:0 30px 60px -20px rgba(11,29,46,.35)}
 .portrait .badge{position:absolute;right:-24px;bottom:40px;background:var(--ink);color:#fff;padding:16px 20px;border-radius:14px;box-shadow:0 20px 40px -10px rgba(0,0,0,.35);display:flex;align-items:center;gap:12px;font-family:var(--serif);font-size:1.05rem}
 .portrait .badge img{width:40px;height:auto;aspect-ratio:auto;box-shadow:none;border-radius:0}
@@ -202,8 +206,8 @@ header.scrolled{background:rgba(11,29,46,.94);backdrop-filter:blur(12px);box-sha
 .endo-grid{display:grid;grid-template-columns:6fr 5fr;gap:64px;align-items:center}
 .endo-grid h2{margin:14px 0 10px}
 .endo-grid p{color:var(--ink-soft);margin-bottom:18px}
-.diagram{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:0 30px 60px -40px rgba(11,29,46,.4)}
-.diagram svg{width:100%;height:auto}
+.diagram{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:0 30px 60px -40px rgba(11,29,46,.4)}
+.diagram img{width:100%;height:auto;display:block}
 .diagram figcaption{font-size:.8rem;color:var(--muted);text-align:center;margin-top:8px;font-style:italic}
 
 /* Benefits: pinned section, cards slide horizontally as the page scrolls */
@@ -458,7 +462,7 @@ footer h4{color:#fff;font-size:.78rem;letter-spacing:.16em;text-transform:upperc
   .hv-doc{margin:-30px 14px 0;max-width:none}
   .faq-side,.appt-grid > div:first-child{position:static}
   .portrait{position:static;max-width:440px}
-  .portrait .badge{right:16px}
+  .portrait .badge,.portrait .photo .badge{right:12px}
   .sym-grid,.auth-grid,.contact-cards,.steps,.featured{grid-template-columns:repeat(2,1fr)}
   .cond-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:auto}
   .cond,.cond.wide,.cond.xwide{grid-column:span 2;min-height:340px}
@@ -641,7 +645,7 @@ footer h4{color:#fff;font-size:.78rem;letter-spacing:.16em;text-transform:upperc
   <div class="wrap about-grid">
     <div class="portrait reveal">
       <div class="photo">
-        <img src="assets/img/dr-pramod-lokhande.jpg?v=2" alt="Dr. Pramod V. Lokhande wearing a white doctor’s coat" loading="lazy">
+        <img class="portrait-photo" src="assets/img/dr-pramod-lokhande-portrait.webp" alt="Dr. Pramod V. Lokhande wearing a white doctor’s coat" width="300" height="315" loading="lazy">
         <div class="badge"><img src="assets/img/logo/gurukrupa-emblem-white.svg" alt="">Gurukrupa Spine Clinic</div>
       </div>
       <div class="flags-label">Advanced fellowship training</div>
@@ -714,37 +718,7 @@ footer h4{color:#fff;font-size:.78rem;letter-spacing:.16em;text-transform:upperc
       <figure class="endo-photo"><img class="zoomable" src="assets/img/dr/endoscopic-surgery.jpg" alt="Dr. Pramod V. Lokhande performing an endoscopic spine procedure" loading="lazy"><figcaption>Dr. Lokhande performing full endoscopic spine surgery</figcaption></figure>
     </div>
     <figure class="diagram reveal">
-      <svg viewBox="0 0 520 400" role="img" aria-labelledby="dgTitle">
-        <title id="dgTitle">Diagram: an endoscope passes through a small incision in the skin to reach the disc between two vertebrae</title>
-        <defs>
-          <linearGradient id="dgSkin" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#f4c7ae"/><stop offset="1" stop-color="#e7a98b"/></linearGradient>
-          <linearGradient id="dgMuscle" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#f6dcd2"/><stop offset="1" stop-color="#f1e8e2"/></linearGradient>
-          <radialGradient id="dgLight"><stop offset="0" stop-color="#9fe3de" stop-opacity=".95"/><stop offset="1" stop-color="#9fe3de" stop-opacity="0"/></radialGradient>
-        </defs>
-        <rect x="20" y="70" width="380" height="310" rx="14" fill="url(#dgMuscle)"/>
-        <rect x="20" y="62" width="380" height="20" rx="6" fill="url(#dgSkin)"/>
-        <!-- vertebrae and disc -->
-        <rect x="90" y="150" width="220" height="80" rx="18" fill="#fff" stroke="#14304a" stroke-width="2"/>
-        <rect x="96" y="236" width="208" height="30" rx="12" fill="#9fd8d4" stroke="#14304a" stroke-width="1.6"/>
-        <path d="M150 251 h80" stroke="#0a6b68" stroke-width="1.2" stroke-dasharray="4 4"/>
-        <rect x="90" y="272" width="220" height="80" rx="18" fill="#fff" stroke="#14304a" stroke-width="2"/>
-        <path d="M306 247 q22 4 18 16" fill="#e0654f" stroke="#14304a" stroke-width="1.4"/>
-        <!-- endoscope: straight tube entering through the incision (352,72) and ending at the disc -->
-        <ellipse cx="300" cy="248" rx="46" ry="30" fill="url(#dgLight)"/>
-        <line x1="371" y1="0" x2="306" y2="246" stroke="#14304a" stroke-width="15" stroke-linecap="round"/>
-        <line x1="371" y1="0" x2="306" y2="246" stroke="#5b6b7a" stroke-width="12" stroke-linecap="round"/>
-        <line x1="368" y1="2" x2="304" y2="244" stroke="#c9d3dc" stroke-width="3" stroke-linecap="round" opacity=".8"/>
-        <circle cx="352" cy="72" r="5" fill="#c2412d" stroke="#fff" stroke-width="1.5"/>
-        <!-- labels -->
-        <g font-family="Inter,Arial,sans-serif" font-size="14" font-weight="600" fill="#14304a">
-          <path d="M60 72 H20" stroke="#14304a" stroke-width="1"/><text x="24" y="54">Skin</text>
-          <path d="M359 70 L420 56" stroke="#14304a" stroke-width="1"/><text x="424" y="60">Small</text><text x="424" y="77">incision</text>
-          <path d="M341 140 L430 140" stroke="#14304a" stroke-width="1"/><text x="434" y="145">Endoscope</text>
-          <path d="M310 190 L430 190" stroke="#14304a" stroke-width="1"/><text x="434" y="195">Vertebra</text>
-          <path d="M304 251 L430 251" stroke="#14304a" stroke-width="1" stroke-dasharray="0"/><text x="434" y="256">Disc</text>
-          <path d="M310 312 L430 312" stroke="#14304a" stroke-width="1"/><text x="434" y="317">Vertebra</text>
-        </g>
-      </svg>
+      <img class="zoomable" src="assets/img/endoscopy-illustration.svg" alt="Side cross-section of the lower spine: an endoscope passes through a small skin incision and between the bones to reach a herniated disc pressing on a nerve root, with an inset of the magnified endoscopic camera view" width="680" height="500">
       <figcaption>Educational illustration. Not to scale.</figcaption>
     </figure>
   </div>
