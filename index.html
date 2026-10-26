@@ -143,16 +143,21 @@ header.scrolled{background:rgba(11,29,46,.94);backdrop-filter:blur(12px);box-sha
 /* Pulsing pain glow over the lower back of the hero image */
 .hv-pulse{position:absolute;left:50%;top:79%;width:44%;aspect-ratio:3/4;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(255,60,40,.55),rgba(255,40,30,0));mix-blend-mode:screen;animation:painpulse 2.6s ease-in-out infinite}
 @keyframes painpulse{0%,100%{opacity:.25;transform:translate(-50%,-50%) scale(.85)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}}
-.hv-doc{position:relative;margin:-38px 0 0 -34px;display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.97);color:var(--ink);padding:10px 20px 10px 10px;border-radius:18px;max-width:330px;box-shadow:0 24px 50px -14px rgba(0,0,0,.55);border-left:4px solid var(--teal)}
-.hv-doc img{width:74px;height:74px;border-radius:14px;object-fit:cover;object-position:center 20%;flex-shrink:0}
-.hv-doc b{display:block;font-family:var(--serif);font-weight:500;font-size:1.08rem;margin-bottom:2px}
-.hv-doc span{font-size:.82rem;font-weight:600;line-height:1.35;color:var(--ink-soft)}
+/* Happy patient overlapping the spine image: the "after" to its "before" */
+.hv-happy{position:absolute;left:-44px;bottom:-30px;width:46%;background:#fff;padding:8px 8px 12px;border-radius:20px;box-shadow:0 28px 60px -18px rgba(0,0,0,.6);transform:rotate(-3deg)}
+.hv-happy img{width:100%;aspect-ratio:1/1;object-fit:cover;object-position:center 30%;border-radius:14px}
+.hv-happy span{display:block;margin-top:9px;text-align:center;font-family:var(--serif);font-size:1rem;line-height:1.25;color:var(--teal-deep)}
 
 /* Symptoms */
 .sym-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .sym{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:32px 30px;transition:.35s}
 .sym:hover{transform:translateY(-6px);box-shadow:0 24px 50px -28px rgba(11,29,46,.35);border-color:transparent}
 .sym .ic{width:52px;height:52px;border-radius:14px;background:#fdeee9;color:var(--alert);display:grid;place-items:center;margin-bottom:22px}
+.sym:not(.callout){padding:0;overflow:hidden}
+.sym-media{position:relative;aspect-ratio:16/10}
+.sym-media img{width:100%;height:100%;object-fit:cover}
+.sym-media .ic{position:absolute;left:22px;bottom:-26px;margin:0;border:4px solid #fff;box-shadow:0 8px 20px -8px rgba(0,0,0,.35)}
+.sym-body{padding:40px 28px 30px}
 .sym .ic svg{width:26px;height:26px}
 .sym h3{margin-bottom:10px;font-size:1.28rem}
 .sym p{color:var(--ink-soft);font-size:.96rem}
@@ -459,7 +464,8 @@ footer h4{color:#fff;font-size:.78rem;letter-spacing:.16em;text-transform:upperc
 @media (max-width:1024px){
   .hero-grid,.about-grid,.approach-grid,.endo-grid,.faq-grid,.appt-grid,.fellow-info{grid-template-columns:1fr;gap:40px}
   .hero-visual{max-width:420px}
-  .hv-doc{margin:-30px 14px 0;max-width:none}
+  .hero-visual{margin-bottom:24px}
+  .hv-happy{left:-10px;width:44%}
   .faq-side,.appt-grid > div:first-child{position:static}
   .portrait{position:static;max-width:440px}
   .portrait .badge,.portrait .photo .badge{right:12px}
@@ -571,9 +577,8 @@ footer h4{color:#fff;font-size:.78rem;letter-spacing:.16em;text-transform:upperc
       <p>Living with persistent back pain, shooting leg pain, or difficulty walking can affect your work, sleep, and everyday activities. The good news? Not every spine problem requires major surgery.</p>
       <p>Dr. Pramod V. Lokhande brings over 24 years of dedicated spine surgery experience, helping patients understand their condition and explore appropriate treatment options. From non-surgical care to advanced full endoscopic spine surgery, your treatment begins with one priority: finding the right solution for your spine.</p>
       <div class="cta-row">
-        <a href="#appointment" class="btn btn-primary">Book a Spine Consultation
+        <a href="#approach" class="btn btn-primary">Explore Treatment Options
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        <a href="#approach" class="btn btn-ghost">Explore Treatment Options</a>
       </div>
       <div class="stats">
         <div class="stat"><b><span data-count="24">24</span>+ <small>Years</small></b><span>Dedicated to spine surgery</span></div>
@@ -587,9 +592,10 @@ footer h4{color:#fff;font-size:.78rem;letter-spacing:.16em;text-transform:upperc
         <img src="assets/img/hero/spine-pain.jpg" alt="A man's back with the spine highlighted and the lower back glowing red with pain" class="on">
         <i class="hv-pulse" aria-hidden="true"></i>
       </div>
-      <figcaption class="hv-doc">
-        <img src="assets/img/dr-pramod-lokhande-portrait.webp" alt="Portrait of Dr. Pramod V. Lokhande, endoscopic and minimally invasive spine surgeon">
-        <span><b>Dr. Pramod V. Lokhande</b>Full Endoscopic &amp; Minimally Invasive Spine Surgery</span>
+      <!-- Photo: Unsplash (free licence) -->
+      <figcaption class="hv-happy">
+        <img src="assets/img/hero/happy-patient.jpg" alt="Smiling older man, relaxed and happy">
+        <span>Back to the life<br>you enjoy</span>
       </figcaption>
     </figure>
   </div>
@@ -605,29 +611,29 @@ footer h4{color:#fff;font-size:.78rem;letter-spacing:.16em;text-transform:upperc
     </div>
     <div class="sym-grid">
       <article class="sym reveal">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg></div>
-        <h3>Pain That Travels Down Your Leg</h3>
-        <p>A sharp, burning, or shooting pain from your lower back into your leg may be associated with sciatica or nerve compression.</p>
+        <div class="sym-media"><img src="assets/img/symptoms/leg-pain.jpg" alt="Person holding their lower back and hip in pain" loading="lazy"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg></div></div>
+        <div class="sym-body"><h3>Pain That Travels Down Your Leg</h3>
+        <p>A sharp, burning, or shooting pain from your lower back into your leg may be associated with sciatica or nerve compression.</p></div>
       </article>
       <article class="sym reveal">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="4" r="2"/><path d="M10 22l2-7 3 3v4M7 13l3-5 4 1 3 4"/></svg></div>
-        <h3>Difficulty Walking or Standing</h3>
-        <p>Do you need to stop and rest after walking a short distance? Certain spinal conditions can affect the nerves involved in walking.</p>
+        <div class="sym-media"><img src="assets/img/symptoms/walking.jpg" alt="Older man walking slowly with a cane" loading="lazy"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="4" r="2"/><path d="M10 22l2-7 3 3v4M7 13l3-5 4 1 3 4"/></svg></div></div>
+        <div class="sym-body"><h3>Difficulty Walking or Standing</h3>
+        <p>Do you need to stop and rest after walking a short distance? Certain spinal conditions can affect the nerves involved in walking.</p></div>
       </article>
       <article class="sym reveal">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8c2-2 4-2 6 0s4 2 6 0 4-2 6 0M2 14c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/></svg></div>
-        <h3>Numbness or Tingling</h3>
-        <p>Persistent tingling, altered sensation, or weakness in your arms or legs may indicate a problem requiring medical evaluation.</p>
+        <div class="sym-media"><img src="assets/img/symptoms/numbness.jpg" alt="Person holding a painful, tingling hand" loading="lazy"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8c2-2 4-2 6 0s4 2 6 0 4-2 6 0M2 14c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/></svg></div></div>
+        <div class="sym-body"><h3>Numbness or Tingling</h3>
+        <p>Persistent tingling, altered sensation, or weakness in your arms or legs may indicate a problem requiring medical evaluation.</p></div>
       </article>
       <article class="sym reveal">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg></div>
-        <h3>Pain That Keeps Returning</h3>
-        <p>If medication, physiotherapy, or other treatments have not provided sufficient relief, it may be time to review your diagnosis and treatment plan.</p>
+        <div class="sym-media"><img src="assets/img/symptoms/recurring.jpg" alt="Woman holding her sore lower back" loading="lazy"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg></div></div>
+        <div class="sym-body"><h3>Pain That Keeps Returning</h3>
+        <p>If medication, physiotherapy, or other treatments have not provided sufficient relief, it may be time to review your diagnosis and treatment plan.</p></div>
       </article>
       <article class="sym reveal">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4M12 16h.01"/></svg></div>
-        <h3>Fear of Spine Surgery</h3>
-        <p>Many patients worry about surgical risks, recovery time, and returning to their normal lives. Understanding your options is the first step toward making an informed decision.</p>
+        <div class="sym-media"><img src="assets/img/symptoms/fear.jpg" alt="Worried patient talking with a doctor" loading="lazy"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4M12 16h.01"/></svg></div></div>
+        <div class="sym-body"><h3>Fear of Spine Surgery</h3>
+        <p>Many patients worry about surgical risks, recovery time, and returning to their normal lives. Understanding your options is the first step toward making an informed decision.</p></div>
       </article>
       <article class="sym callout reveal">
         <div>
