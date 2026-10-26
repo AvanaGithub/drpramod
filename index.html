@@ -361,11 +361,15 @@ header.scrolled{background:rgba(11,29,46,.94);backdrop-filter:blur(12px);box-sha
 .fellow-small{font-size:.84rem;color:var(--muted)!important}
 
 /* Journey */
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;counter-reset:s}
-.step{position:relative;padding:30px 28px 28px;background:#fff;border:1px solid var(--line);border-radius:var(--radius)}
-.step::before{counter-increment:s;content:"0" counter(s);display:block;font-family:var(--serif);font-size:2.4rem;line-height:1;color:var(--teal);margin-bottom:16px}
-.step h3{font-size:1.2rem;margin-bottom:8px}
-.step p{font-size:.94rem;color:var(--ink-soft)}
+/* Journey: horizontal timeline; the line fills as the section scrolls into view */
+.steps{position:relative;display:grid;grid-template-columns:repeat(6,1fr);gap:18px;counter-reset:s}
+.steps-line{position:absolute;left:calc(100% / 12);right:calc(100% / 12);top:23px;height:3px;border-radius:3px;background:var(--line)}
+.steps-line i{position:absolute;inset:0 auto 0 0;width:0;border-radius:3px;background:linear-gradient(90deg,var(--teal),#9fe3de);transition:width .25s linear}
+.step{position:relative;text-align:center;padding-top:66px}
+.step::before{counter-increment:s;content:counter(s);position:absolute;top:0;left:50%;transform:translateX(-50%);width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font-family:var(--serif);font-size:1.25rem;background:#fff;color:var(--teal-deep);border:2px solid var(--line);transition:background .4s,color .4s,border-color .4s,box-shadow .4s}
+.step.done::before{background:var(--teal);color:#fff;border-color:var(--teal);box-shadow:0 0 0 6px rgba(13,138,134,.15)}
+.step h3{font-size:1.05rem;margin-bottom:6px}
+.step p{font-size:.86rem;line-height:1.5;color:var(--ink-soft)}
 .journey-end{margin-top:48px;text-align:center}
 .journey-end p{font-family:var(--serif);font-style:italic;font-size:1.5rem;color:var(--teal-deep);margin-bottom:22px}
 
@@ -460,7 +464,13 @@ footer h4{color:#fff;font-size:.78rem;letter-spacing:.16em;text-transform:upperc
     .faq-side,.appt-grid > div:first-child{position:static}
   .portrait{position:static;max-width:440px}
   .portrait .badge,.portrait .photo .badge{right:12px}
-  .sym-grid,.auth-grid,.contact-cards,.steps,.featured{grid-template-columns:repeat(2,1fr)}
+  .sym-grid,.auth-grid,.contact-cards,.featured{grid-template-columns:repeat(2,1fr)}
+  /* Journey becomes a vertical timeline */
+  .steps{grid-template-columns:1fr;gap:26px;max-width:560px;margin:0 auto}
+  .steps-line{left:23px;right:auto;top:24px;bottom:24px;width:3px;height:auto}
+  .steps-line i{inset:0 0 auto 0;width:auto!important;height:var(--fill,0%);transition:height .25s linear}
+  .step{text-align:left;padding:4px 0 0 72px;min-height:48px}
+  .step::before{left:0;transform:none}
   .cond-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:auto}
   .cond,.cond.wide,.cond.xwide{grid-column:span 2;min-height:340px}
   .cond.feature{grid-row:auto;min-height:480px}
@@ -480,7 +490,7 @@ footer h4{color:#fff;font-size:.78rem;letter-spacing:.16em;text-transform:upperc
   .stat b{font-size:1.6rem}
   .stat b small{font-size:.85rem}
   .stat span{font-size:.75rem}
-  .sym-grid,.auth-grid,.contact-cards,.steps,.row,.pillars{grid-template-columns:1fr}
+  .sym-grid,.auth-grid,.contact-cards,.row,.pillars{grid-template-columns:1fr}
   .cond{padding:24px}
   .cond.feature{padding:26px}
   .cond dl{grid-template-columns:1fr}
@@ -519,6 +529,8 @@ footer h4{color:#fff;font-size:.78rem;letter-spacing:.16em;text-transform:upperc
   .hs-num{font-size:3.2rem}
   .hero-bg img{transition:none;animation:none}
   .form-close,.fellow-apply{display:none}
+  .steps-line i{width:100%!important}
+  .step::before{background:var(--teal);color:#fff;border-color:var(--teal)}
   .fellow-panel{grid-template-rows:1fr;margin-top:32px}
   .fellow-panel form{opacity:1;transform:none}
   .moments-track{animation:none;flex-wrap:wrap;width:auto}
@@ -976,7 +988,8 @@ footer h4{color:#fff;font-size:.78rem;letter-spacing:.16em;text-transform:upperc
       <span class="eyebrow">What to Expect</span>
       <h2>Your Journey Begins with Understanding Your Spine.</h2>
     </div>
-    <div class="steps">
+    <div class="steps" id="steps">
+      <div class="steps-line" aria-hidden="true"><i id="stepsFill"></i></div>
       <div class="step reveal"><h3>Request an Appointment</h3><p>Share your contact information, preferred consultation location, and main concern.</p></div>
       <div class="step reveal"><h3>Clinical Consultation</h3><p>Discuss your symptoms, medical history, previous treatment, and current difficulties.</p></div>
       <div class="step reveal"><h3>Review of Investigations</h3><p>Your doctor may review existing MRI or other imaging and recommend further investigations if necessary.</p></div>
@@ -1206,6 +1219,21 @@ track.addEventListener('scroll', () => requestAnimationFrame(hsUpdate), {passive
 addEventListener('resize', hsSize);
 addEventListener('load', hsSize);
 hsSize();
+
+// Journey timeline: fill the line and light up steps as the section scrolls past mid-screen
+const stepsEl = document.getElementById('steps'), stepsFill = document.getElementById('stepsFill');
+const stepEls = [...stepsEl.querySelectorAll('.step')];
+function stepsUpdate() {
+  const r = stepsEl.getBoundingClientRect();
+  const p = Math.min(Math.max((innerHeight * 0.75 - r.top) / (r.height + innerHeight * 0.15), 0), 1);
+  const lit = Math.round(p * (stepEls.length - 1));
+  stepsFill.style.width = (lit / (stepEls.length - 1)) * 100 + '%';
+  stepsFill.parentElement.style.setProperty('--fill', (lit / (stepEls.length - 1)) * 100 + '%');
+  stepEls.forEach((s, i) => s.classList.toggle('done', p > 0 && i <= lit));
+}
+addEventListener('scroll', stepsUpdate, { passive: true });
+addEventListener('resize', stepsUpdate);
+stepsUpdate();
 
 // Fellowship form: collapsed until "Apply" (or the training band's button) opens it
 const fellow = document.getElementById('fellowship'), fPanel = document.getElementById('fellowPanel');
